@@ -8,10 +8,16 @@ body {
   font-size: 12px;
 }
 
+@media (min-width: 1300px){
+  .container, .container-lg, .container-md, .container-sm, .container-x1{
+    max-width: 1200px;
+  } 
+}
+
 .headerWrapper .header{
     width: 100%;
     height: auto;
-    padding: 15px 0px;
+    padding: 25px 0px;
 }
 
 .logoWrapper img{
@@ -114,3 +120,74 @@ body {
 .cartTab button svg{
   color: #ea2b0f !important;
 }
+
+/* nav .allCatTab{
+  background: #2bbef9;
+  padding: 8px 30px !important;
+  border-radius: 30px !important;
+  display: inline-block;
+  text-align: center; 
+}
+
+nav .allCatTab *{
+  color: #fff;
+}
+
+nav .allCatTab :hover{
+  background: #2bbef9;
+  border-radius: 30px;
+}
+
+nav .allCatTab .text{
+  font-weight: 600;
+} */
+
+
+.container {
+  margin: 0 auto;
+}
+
+.row {
+  display: flex;
+}
+
+.col-sm-3 {
+  padding: 0;
+}
+
+nav .navPart1{
+  max-width: 30%;
+  flex: 0 0 20%;
+}
+
+nav .allCatTab {
+  background: #2bbef9;
+  padding: 8px 30px !important;
+  border-radius: 30px !important;
+  display: inline-flex; 
+  align-items: center; 
+  justify-content: center; 
+  text-align: center; 
+  transition: background 0.3s, border-radius 0.3s;
+  border: none; 
+  color: #fff; 
+}
+
+nav .allCatTab:hover {
+  background: #1a9fd2;
+  border-radius: 30px; 
+}
+
+nav .allCatTab .text {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+nav .allCatTab .icon1 svg{
+  font-size: 20px !important;
+}
+
+nav .allCatTab .icon2 svg{
+  font-size: 15px !important;
+}
+

@@ -5,6 +5,9 @@ import { Button } from "@mui/material";
 import { FiUser } from "react-icons/fi";
 import { IoBagOutline } from "react-icons/io5";
 import SearchBox from "./SearchBox";
+import { IoIosMenu } from "react-icons/io";
+import { FaAngleDown } from "react-icons/fa";
+import DialogTitle from '@mui/material/DialogTitle';
 
 const Header = () => {
   return (
@@ -36,7 +39,9 @@ const Header = () => {
             <div className="row">
               <div className="col-sm-3 navPart1">
                 <Button className="allCatTab">
+                  <span className="icon1 mr-2"><IoIosMenu/></span>
                   <span className="text">All CATEGORIES</span>
+                  <span className="icon2 ml-2"><FaAngleDown/></span>
                 </Button>
               </div>
               <div className="col-sm-9 navPart2">
