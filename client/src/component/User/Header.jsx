@@ -7,7 +7,7 @@ import { IoBagOutline } from "react-icons/io5";
 import SearchBox from "./SearchBox";
 import { IoIosMenu } from "react-icons/io";
 import { FaAngleDown } from "react-icons/fa";
-import DialogTitle from '@mui/material/DialogTitle';
+
 
 const Header = () => {
   return (
