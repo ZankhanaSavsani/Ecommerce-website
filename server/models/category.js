@@ -1,12 +1,15 @@
 const mongoose = require('mongoose');
 
 const categorySchema = mongoose.Schema({
-    name: String,
-    price: Number,
-    image: String,
-    countInStock: {
-        type: Number,
-        required: true
+    name: {
+        type: String,
+        required: true,
+    } ,
+    icon:{
+        type: String,
+    },
+    color:{
+        type: String,
     }
 })
 
