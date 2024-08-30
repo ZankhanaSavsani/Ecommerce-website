@@ -3,59 +3,83 @@ const router = express.Router();
 const { Category } = require("../models/category");
 const mongoose = require("mongoose");
 
+// GET all categories
 router.get(`/`, async (req, res) => {
-  const categoryList = await Category.find();
+  try {
+    // Fetch all categories from the database
+    const categoryList = await Category.find();
 
-  if (!categoryList) {
-    res.status(500).json({ success: false });
+    // Check if categories were found
+    if (!categoryList) {
+      return res.status(500).json({ success: false, message: "No categories found." });
+    }
+
+    // Send the list of categories in the response
+    res.status(200).send(categoryList);
+  } catch (error) {
+    // Handle any errors during the operation
+    res.status(500).json({ success: false, error: error.message });
   }
-  res.status(200).send(categoryList);
 });
 
+// GET a single category by ID
 router.get("/:id", async (req, res) => {
-  const category = await Category.findById(req.params.id);
+  try {
+    // Find a category by its ID
+    const category = await Category.findById(req.params.id);
 
-  if (!category) {
-    res
-      .status(500)
-      .json({ message: "The category with the given ID was not found." });
+    // Check if the category was found
+    if (!category) {
+      return res.status(404).json({ message: "The category with the given ID was not found." });
+    }
+
+    // Send the category in the response
+    res.status(200).send(category);
+  } catch (error) {
+    // Handle any errors during the operation
+    res.status(500).json({ success: false, error: error.message });
   }
-  res.status(200).send(category);
 });
 
+// UPDATE a category by ID
 router.put("/:id", async (req, res) => {
-  // Check if the category ID is valid
-  if (!mongoose.isValidObjectId(req.params.id)) {
-    return res.status(400).send("Invalid Category ID");
+  try {
+    // Validate the category ID
+    if (!mongoose.isValidObjectId(req.params.id)) {
+      return res.status(400).send("Invalid Category ID");
+    }
+
+    // Update the category with the provided data
+    const updatedCategory = await Category.findByIdAndUpdate(
+      req.params.id,
+      {
+        name: req.body.name,
+        icon: req.body.icon,
+        color: req.body.color,
+      },
+      { new: true } // Return the updated document
+    );
+
+    // Check if the category update was successful
+    if (!updatedCategory) {
+      return res.status(404).send("The category cannot be updated!");
+    }
+
+    // Send the updated category in the response
+    res.send(updatedCategory);
+  } catch (error) {
+    // Handle any errors during the operation
+    res.status(500).json({ success: false, error: error.message });
   }
-
-  // Check if the category exists
-  const category = await Category.findById(req.params.id);
-  if (!category) {
-    return res.status(404).send("Category not found with the given ID");
-  }
-
-  // Update the category
-  const updatedCategory = await Category.findByIdAndUpdate(
-    req.params.id,
-    {
-      name: req.body.name,
-      icon: req.body.icon,
-      color: req.body.color,
-    },
-    { new: true }
-  );
-
-  if (!updatedCategory) {
-    return res.status(404).send("The category cannot be updated!");
-  }
-
-  res.send(updatedCategory);
 });
 
+// DELETE a category by ID
 router.delete("/:categoryId", async (req, res) => {
   try {
+    // Attempt to delete the category by its ID
     const category = await Category.findByIdAndDelete(req.params.categoryId);
+
+    // Check if the category was successfully deleted
     if (category) {
       return res
         .status(200)
@@ -65,15 +89,17 @@ router.delete("/:categoryId", async (req, res) => {
         .status(404)
         .json({ success: false, message: "Category not found!" });
     }
-  } catch (err) {
-    console.error(err);
-    return res.status(500).json({ success: false, error: err });
+  } catch (error) {
+    // Handle any errors during the operation
+    console.error(error);
+    return res.status(500).json({ success: false, error: error.message });
   }
 });
 
+// CREATE a new category
 router.post(`/`, async (req, res) => {
   try {
-    // Create a new category
+    // Create a new category with the provided data
     let category = new Category({
       name: req.body.name,
       icon: req.body.icon,
@@ -83,16 +109,16 @@ router.post(`/`, async (req, res) => {
     // Save the category to the database
     category = await category.save();
 
-    // If the category could not be created
+    // Check if the category was successfully created
     if (!category) {
       return res.status(500).send("The category cannot be created");
     }
 
-    // Respond with the created category and a 201 status code
+    // Send the created category in the response
     res.status(201).send(category);
-  } catch (err) {
-    // Handle any other errors
-    res.status(500).send({ message: err.message });
+  } catch (error) {
+    // Handle any errors during the operation
+    res.status(500).send({ message: error.message });
   }
 });
 

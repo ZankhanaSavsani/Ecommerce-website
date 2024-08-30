@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+// Define the schema for the Product model
 const productSchema = mongoose.Schema({
     // id: String,
     name: {
@@ -29,6 +30,7 @@ const productSchema = mongoose.Schema({
         type: Number,
         default: 0,
     },
+    // Category ID, references the Category model
     category: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Category',
@@ -57,10 +59,12 @@ const productSchema = mongoose.Schema({
     },   
 })
 
+// Create a virtual field 'id' that returns the string representation of the _id field
 productSchema.virtual('id').get(function (){
     return this._id.toHexString();
 });
 
+// Configure the schema to include virtuals when converting documents to JSON
 productSchema.set('toJSON',{
     virtuals: true,
 });
