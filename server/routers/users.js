@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { User } = require('../models/user'); 
 const bcrypt = require('bcryptjs'); // Import bcrypt for password hashing
-
+const jwt = require('jsonwebtoken');
 // GET all users
 router.get(`/`, async (req, res) => {
   try {
@@ -75,13 +75,21 @@ router.post(`/`, async (req, res) => {
 });
 
 router.post('/login',async (req,res)=>{
-  const user = await User.findOne({email: req.body.email})
+  const user = await User.findOne({email: req.body.email});
+  const secret = process.env.SECRET_KEY;
   if(!user){
     return res.status(404).json({success:false,message:"User not found"})
   }
 
   if(user && bcrypt.compareSync(req.body.password,user.passwordHash)){
-    res.status(200).send('user Authenticated')
+    const token = jwt.sign(
+    {
+      userId: user.id 
+    },
+    secret,
+    {expiresIn: '1d'}
+  )
+    res.status(200).send({user: user.email , token: token})
   }
   else{
     return res.status(401).json({success:false,message:"Invalid password"})
