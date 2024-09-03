@@ -48,7 +48,7 @@ router.post(`/`, async (req, res) => {
     let user = new User({
       name: req.body.name,
       email: req.body.email,
-      passwordHash: bcrypt.hashSync(req.body.password, 20), // Hash the password with a salt of 20 rounds
+      passwordHash: bcrypt.hashSync(req.body.password, 10), // Hash the password with a salt of 20 rounds
       phone: req.body.phone,
       isAdmin: req.body.isAdmin,
       street: req.body.street,
@@ -74,26 +74,31 @@ router.post(`/`, async (req, res) => {
   }
 });
 
-router.post('/login',async (req,res)=>{
-  const user = await User.findOne({email: req.body.email});
-  const secret = process.env.SECRET_KEY;
-  if(!user){
-    return res.status(404).json({success:false,message:"User not found"})
-  }
+router.post('/login', async (req, res) => {
+  try {
+      const user = await User.findOne({ email: req.body.email });
+      const secret = process.env.SECRET_KEY;
 
-  if(user && bcrypt.compareSync(req.body.password,user.passwordHash)){
-    const token = jwt.sign(
-    {
-      userId: user.id 
-    },
-    secret,
-    {expiresIn: '1d'}
-  )
-    res.status(200).send({user: user.email , token: token})
+      if (!user) {
+          return res.status(404).json({ success: false, message: "User not found" });
+      }
+
+      const isPasswordValid = await bcrypt.compare(req.body.password, user.passwordHash);
+      if (isPasswordValid) {
+          const token = jwt.sign(
+              {
+                  userId: user.id
+              },
+              secret,
+              { expiresIn: '1d' }
+          );
+          return res.status(200).send({ user: user.email, token: token });
+      } else {
+          return res.status(401).json({ success: false, message: "Invalid password" });
+      }
+  } catch (error) {
+      return res.status(500).json({ success: false, message: "Internal server error", error: error.message });
   }
-  else{
-    return res.status(401).json({success:false,message:"Invalid password"})
-  }
-})
+});
 
 module.exports = router;
