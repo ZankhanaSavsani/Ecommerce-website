@@ -9,8 +9,8 @@ const userSchema = mongoose.Schema({
     email: {
         type: String,
         required: true,
-        unique: true,
-        index: true
+        // unique: true,
+        // index: true
     },
     passwordHash: {
         type: String,
@@ -47,7 +47,7 @@ const userSchema = mongoose.Schema({
 });
 
 // If you want to explicitly create an index programmatically:
-userSchema.index({ email: 1 }, { unique: true });
+//userSchema.index({ email: 1 }, { unique: true });
 
 
 // Create a virtual field 'id' that returns the string representation of the _id field

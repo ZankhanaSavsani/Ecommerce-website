@@ -38,11 +38,17 @@ app.use(`${api}/orders`,ordersRouter);
 mongoose.connect(mongoURI,{
     ssl: true,
 })
-  .then(() => console.log('MongoDB connected...'))
+.then(() => {
+  console.log('MongoDB connected...');
+  // Start the server only after successful DB connection
+  app.listen(3000, () => {
+      console.log('Server is running on http://localhost:3000');
+  });
+})
   .catch(err => console.log(err));
 
-//server
-app.listen(3000,()=>{
-    console.log('server is running http://localhost:3000');
-});
+// //server
+// app.listen(3000,()=>{
+//     console.log('server is running http://localhost:3000');
+// });
 

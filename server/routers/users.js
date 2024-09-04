@@ -3,6 +3,7 @@ const router = express.Router();
 const { User } = require('../models/user'); 
 const bcrypt = require('bcryptjs'); // Import bcrypt for password hashing
 const jwt = require('jsonwebtoken');
+
 // GET all users
 router.get(`/`, async (req, res) => {
   try {
@@ -45,7 +46,7 @@ router.get("/:id", async (req, res) => {
 router.post(`/`, async (req, res) => {
   try {
     // Create a new user with the provided data
-    let user = new User({
+    let users = new User({
       name: req.body.name,
       email: req.body.email,
       passwordHash: bcrypt.hashSync(req.body.password, 10), // Hash the password with a salt of 20 rounds
@@ -58,46 +59,95 @@ router.post(`/`, async (req, res) => {
       country: req.body.country,
     });
 
+    const isUser = await User.findOne({email: req.body.email})
+
+    if (isUser) {
+        return res.json({
+            error: true,
+            message: "User Already Exist...!"
+        });
+    }
+
     // Save the user to the database
-    user = await user.save();
+    users = await users.save();
 
     // If the user could not be created
-    if (!user) {
+    if (!users) {
       return res.status(500).send("The user cannot be created");
     }
 
     // Respond with the created user and a 201 status code
-    res.status(201).send(user);
+    res.status(201).send(users);
   } catch (err) {
     // Handle any other errors
     res.status(500).send({ message: err.message });
   }
 });
 
+// router.post('/login', async (req, res) => {
+//   try {
+//       const user = await User.findOne({ email: req.body.email }).select('email passwordHash');
+//       const secret = process.env.SECRET_KEY;
+
+//       if (!user) {
+//           return res.status(404).json({ success: false, message: "User not found" });
+//       }
+
+//       const isPasswordValid = await bcrypt.compare(req.body.password, user.passwordHash);
+//       if (isPasswordValid) {
+//           const token = jwt.sign(
+//               {
+//                   userId: user.id
+//               },
+//               secret,
+//               { expiresIn: '1d' }  // Token expires in 1 day
+//           );
+//           return res.status(200).send({ user: user.email, token: token });
+//       } else {
+//           return res.status(401).json({ success: false, message: "Invalid password" });
+//       }
+//   } catch (error) {
+//       return res.status(500).json({ success: false, message: "Internal server error", error: error.message });
+//   }
+// });
+
+
+
+
+
+
+// LOGIN a user
 router.post('/login', async (req, res) => {
   try {
-      const user = await User.findOne({ email: req.body.email });
-      const secret = process.env.SECRET_KEY;
+    console.time('User Query Time');
+    const user = await User.findOne({ email: req.body.email }).select('email passwordHash');
+    console.timeEnd('User Query Time');
 
-      if (!user) {
-          return res.status(404).json({ success: false, message: "User not found" });
-      }
+    const secret = process.env.SECRET_KEY;
 
-      const isPasswordValid = await bcrypt.compare(req.body.password, user.passwordHash);
-      if (isPasswordValid) {
-          const token = jwt.sign(
-              {
-                  userId: user.id
-              },
-              secret,
-              { expiresIn: '1d' }
-          );
-          return res.status(200).send({ user: user.email, token: token });
-      } else {
-          return res.status(401).json({ success: false, message: "Invalid password" });
-      }
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+
+    console.time('Password Compare Time');
+    const isPasswordValid = await bcrypt.compare(req.body.password, user.passwordHash);
+    console.timeEnd('Password Compare Time');
+
+    if (isPasswordValid) {
+      console.time('JWT Sign Time');
+      const token = jwt.sign(
+        { userId: user.id },
+        secret,
+        { expiresIn: '1d' }
+      );
+      console.timeEnd('JWT Sign Time');
+
+      return res.status(200).send({ user: user.email, token: token });
+    } else {
+      return res.status(401).json({ success: false, message: "Invalid password" });
+    }
   } catch (error) {
-      return res.status(500).json({ success: false, message: "Internal server error", error: error.message });
+    return res.status(500).json({ success: false, message: "Internal server error", error: error.message });
   }
 });
 
