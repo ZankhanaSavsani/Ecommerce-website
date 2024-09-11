@@ -41,8 +41,8 @@ mongoose.connect(mongoURI,{
 .then(() => {
   console.log('MongoDB connected...');
   // Start the server only after successful DB connection
-  app.listen(3000, () => {
-      console.log('Server is running on http://localhost:3000');
+  app.listen(5000, () => {
+      console.log('Server is running on http://localhost:5000');
   });
 })
   .catch(err => console.log(err));
