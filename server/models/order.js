@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const orderSchema = mongoose.Schema({
     orderItems: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'orderItem',
+        ref: 'OrderItem',
         required: true,
     }],
     shippingAddress1: {
@@ -54,7 +54,7 @@ orderSchema.virtual('id').get(function (){
 });
 
 // Configure the schema to include virtuals when converting documents to JSON
-productSchema.set('toJSON',{
+orderSchema.set('toJSON',{
     virtuals: true,
 });
 

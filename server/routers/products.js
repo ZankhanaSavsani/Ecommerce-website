@@ -3,6 +3,7 @@ const router = express.Router();
 const { Product } = require("../models/product");
 const mongoose = require("mongoose");
 const { Category } = require("../models/category");
+const multer = require('multer');
 require("dotenv").config();
 
 // GET all products with optional category filter

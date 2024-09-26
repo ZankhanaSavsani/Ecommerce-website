@@ -1,18 +1,20 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const { User } = require('../models/user'); 
-const bcrypt = require('bcryptjs'); // Import bcrypt for password hashing
-const jwt = require('jsonwebtoken');
+const { User } = require("../models/user");
+const bcrypt = require("bcryptjs"); // Import bcrypt for password hashing
+const jwt = require("jsonwebtoken");
 
 // GET all users
 router.get(`/`, async (req, res) => {
   try {
     // Fetch all users, excluding their password hashes
-    const userList = await User.find().select('-passwordHash');
+    const userList = await User.find().select("-passwordHash");
 
     // Check if users were found
     if (!userList) {
-      return res.status(500).json({ success: false, message: "No users found." });
+      return res
+        .status(500)
+        .json({ success: false, message: "No users found." });
     }
 
     // Send the list of users in the response
@@ -27,11 +29,16 @@ router.get(`/`, async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     // Find a user by their ID, excluding the password hash
-    const user = await User.findById(req.params.id).select('-passwordHash');
+    const user = await User.findById(req.params.id).select("-passwordHash");
 
     // Check if the user was found
     if (!user) {
-      return res.status(404).json({ success: false, message: "The user with the given ID was not found." });
+      return res
+        .status(404)
+        .json({
+          success: false,
+          message: "The user with the given ID was not found.",
+        });
     }
 
     // Send the user data in the response
@@ -48,7 +55,9 @@ router.post(`/`, async (req, res) => {
     // Validation: Check if required fields are provided
     const { name, email, password, phone } = req.body;
     if (!name || !email || !password || !phone) {
-      return res.status(400).send({ message: 'Please provide all required fields.' });
+      return res
+        .status(400)
+        .send({ message: "Please provide all required fields." });
     }
 
     // Check if the user with the provided email already exists
@@ -57,7 +66,7 @@ router.post(`/`, async (req, res) => {
     if (isUser) {
       return res.status(400).json({
         error: true,
-        message: "User Already Exists...!"
+        message: "User Already Exists...!",
       });
     }
 
@@ -92,11 +101,12 @@ router.post(`/`, async (req, res) => {
     res.status(201).send(userWithoutPassword);
   } catch (err) {
     // Log and handle errors
-    console.error('Error creating user:', err);
-    res.status(500).send({ message: 'Internal Server Error', error: err.message });
+    console.error("Error creating user:", err);
+    res
+      .status(500)
+      .send({ message: "Internal Server Error", error: err.message });
   }
 });
-
 
 // router.post('/login', async (req, res) => {
 //   try {
@@ -125,46 +135,54 @@ router.post(`/`, async (req, res) => {
 //   }
 // });
 
-
-
-
-
-
 // LOGIN a user
-router.post('/login', async (req, res) => {
+router.post("/login", async (req, res) => {
   try {
-    console.time('User Query Time');
-    const user = await User.findOne({ email: req.body.email }).select('email passwordHash isAdmin');
-    console.log(user);  // Make sure isAdmin is present
-    console.timeEnd('User Query Time');
+    console.time("User Query Time");
+    const user = await User.findOne({ email: req.body.email }).select(
+      "email passwordHash isAdmin"
+    );
+    console.log(user); // Make sure isAdmin is present
+    console.timeEnd("User Query Time");
 
     const secret = process.env.SECRET_KEY;
 
     if (!user) {
-      return res.status(404).json({ success: false, message: "User not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
     }
 
-    console.time('Password Compare Time');
-    const isPasswordValid = await bcrypt.compare(req.body.password, user.passwordHash);
-    console.timeEnd('Password Compare Time');
+    console.time("Password Compare Time");
+    const isPasswordValid = await bcrypt.compare(
+      req.body.password,
+      user.passwordHash
+    );
+    console.timeEnd("Password Compare Time");
 
     if (isPasswordValid) {
-      console.time('JWT Sign Time');
+      console.time("JWT Sign Time");
       const token = jwt.sign(
-        { userId: user.id,
-          isAdmin: user.isAdmin
-         },
+        { userId: user.id, isAdmin: user.isAdmin },
         secret,
-        { expiresIn: '1d' }
+        { expiresIn: "1d" }
       );
-      console.timeEnd('JWT Sign Time');
+      console.timeEnd("JWT Sign Time");
 
       return res.status(200).send({ user: user.email, token: token });
     } else {
-      return res.status(401).json({ success: false, message: "Invalid password" });
+      return res
+        .status(401)
+        .json({ success: false, message: "Invalid password" });
     }
   } catch (error) {
-    return res.status(500).json({ success: false, message: "Internal server error", error: error.message });
+    return res
+      .status(500)
+      .json({
+        success: false,
+        message: "Internal server error",
+        error: error.message,
+      });
   }
 });
 
@@ -184,13 +202,13 @@ router.post(`/register`, async (req, res) => {
       country: req.body.country,
     });
 
-    const isUser = await User.findOne({email: req.body.email})
+    const isUser = await User.findOne({ email: req.body.email });
 
     if (isUser) {
-        return res.json({
-            error: true,
-            message: "User Already Exist...!"
-        });
+      return res.json({
+        error: true,
+        message: "User Already Exist...!",
+      });
     }
 
     // Save the user to the database
@@ -201,8 +219,19 @@ router.post(`/register`, async (req, res) => {
       return res.status(400).send("The user cannot be created");
     }
 
-    // Respond with the created user and a 201 status code
-    res.status(201).send(user);
+    // Respond with the created user data excluding the password and a 201 status code
+    res
+      .status(201)
+      .send({
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        street: user.street,
+        apartment: user.apartment,
+        zip: user.zip,
+        city: user.city,
+        country: user.country,
+      });
   } catch (err) {
     // Handle any other errors
     res.status(500).send({ message: err.message });
@@ -220,7 +249,9 @@ router.delete("/:id", async (req, res) => {
       return res.status(200).json({ success: true, message: "user deleted" });
     } else {
       // If the user is not found, send a 404 response
-      return res.status(404).json({ success: false, message: "user not found!" });
+      return res
+        .status(404)
+        .json({ success: false, message: "user not found!" });
     }
   } catch (err) {
     // Handle any errors during the operation

@@ -21,14 +21,20 @@ function authJwt() {
     });
   }
 
-  async function isRevoked(req,payload, done){
-     // Check if the user is an admin based on the token's payload
-    if(!payload.isAdmin){
-      // If the user is not an admin, revoke the token
-      return done(null, true);
+  async function isRevoked(req, token) {
+    // Access the nested payload property
+    const payload = token.payload;
+
+    // Check if the user is an admin based on the token's payload
+    if (payload.isAdmin !== true) {
+        return Promise.resolve(true); // Revoke token for non-admin users
     }
-    // If the user is an admin, allow the token to proceed
-    done();
-  }
+
+    return Promise.resolve(false); // Allow token for admin users
+}
+
+  
+  
+  
 
 module.exports = authJwt;
