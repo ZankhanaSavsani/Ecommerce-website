@@ -476,3 +476,45 @@
       width: 100%;
   }
 }
+
+
+/* productlist css */
+
+.product-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .category-section {
+    margin-bottom: 20px;
+  }
+  
+  .products {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  
+  .product-card {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+    width: 200px;
+  }
+  
+  .product-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+  }
+  
+  h2 {
+    margin-bottom: 15px;
+  }
+  
+  h3 {
+    font-size: 1.2rem;
+    margin: 10px 0;
+  }
+  

@@ -1,223 +1,62 @@
-function Product(){
-    return(
-        <div className="coffee_section layout_padding">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-12">
-              <h1 className="coffee_taital">Top Categories to Explore</h1>
-            </div>
-          </div>
-        </div>
-        <div className="coffee_section_2">
-          <div id="main_slider" className="carousel slide" data-ride="carousel">
-            <div className="carousel-inner">
-              <div className="carousel-item active">
-                <div className="container-fluid">
-                  <div className="row">
-                    <div className="col-lg-3 col-md-6">
-                      <div className="coffee_img">
-                        <img src="images/seeds.jpg" />
-                      </div>
-                      <div className="coffee_box">
-                        <h3 className="types_text">SEEDS</h3>
-                        {/* <p className="looking_text">
-                          looking at its layout. The point of
-                        </p> */}
-                        <div className="read_bt">
-                          <a href="#">Read More</a>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-lg-3 col-md-6">
-                      <div className="coffee_img">
-                        <img src="images/tools.png" />
-                      </div>
-                      <div className="coffee_box">
-                        <h3 className="types_text">TOOLS</h3>
-                        {/* <p className="looking_text">
-                          looking at its layout. The point of
-                        </p> */}
-                        <div className="read_bt">
-                          <a href="#">Read More</a>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-lg-3 col-md-6">
-                      <div className="coffee_img">
-                        <img src="images/crop-protection.jpg" />
-                      </div>
-                      <div className="coffee_box">
-                        <h3 className="types_text">CROP-PROTECTION</h3>
-                        {/* <p className="looking_text">
-                          looking at its layout. The point of
-                        </p> */}
-                        <div className="read_bt">
-                          <a href="#">Read More</a>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-lg-3 col-md-6">
-                      <div className="coffee_img">
-                        <img src="images/fertilizer.jpg" />
-                      </div>
-                      <div className="coffee_box">
-                        <h3 className="types_text">FERTILIZER</h3>
-                        {/* <p className="looking_text">
-                          looking at its layout. The point of
-                        </p> */}
-                        <div className="read_bt">
-                          <a href="#">Read More</a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              {/* <div className="carousel-item">
-                <div className="container-fluid">
-                  <div className="row">
-                    <div className="col-lg-3 col-md-6">
-                      <div className="coffee_img">
-                        <img src="images/img-1.png" />
-                      </div>
-                      <div className="coffee_box">
-                        <h3 className="types_text">TYPES OF COFFEE</h3>
-                        <p className="looking_text">
-                          looking at its layout. The point of
-                        </p>
-                        <div className="read_bt">
-                          <a href="#">Read More</a>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-lg-3 col-md-6">
-                      <div className="coffee_img">
-                        <img src="images/img-2.png" />
-                      </div>
-                      <div className="coffee_box">
-                        <h3 className="types_text">BEAN VARIETIES</h3>
-                        <p className="looking_text">
-                          looking at its layout. The point of
-                        </p>
-                        <div className="read_bt">
-                          <a href="#">Read More</a>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-lg-3 col-md-6">
-                      <div className="coffee_img">
-                        <img src="images/img-3.png" />
-                      </div>
-                      <div className="coffee_box">
-                        <h3 className="types_text">COFFEE & PASTRY</h3>
-                        <p className="looking_text">
-                          looking at its layout. The point of
-                        </p>
-                        <div className="read_bt">
-                          <a href="#">Read More</a>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-lg-3 col-md-6">
-                      <div className="coffee_img">
-                        <img src="images/img-4.png" />
-                      </div>
-                      <div className="coffee_box">
-                        <h3 className="types_text">COFFEE TO GO</h3>
-                        <p className="looking_text">
-                          looking at its layout. The point of
-                        </p>
-                        <div className="read_bt">
-                          <a href="#">Read More</a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div> */}
-              {/* <div className="carousel-item">
-                <div className="container-fluid">
-                  <div className="row">
-                    <div className="col-lg-3 col-md-6">
-                      <div className="coffee_img">
-                        <img src="images/img-1.png" />
-                      </div>
-                      <div className="coffee_box">
-                        <h3 className="types_text">TYPES OF COFFEE</h3>
-                        <p className="looking_text">
-                          looking at its layout. The point of
-                        </p>
-                        <div className="read_bt">
-                          <a href="#">Read More</a>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-lg-3 col-md-6">
-                      <div className="coffee_img">
-                        <img src="images/img-2.png" />
-                      </div>
-                      <div className="coffee_box">
-                        <h3 className="types_text">BEAN VARIETIES</h3>
-                        <p className="looking_text">
-                          looking at its layout. The point of
-                        </p>
-                        <div className="read_bt">
-                          <a href="#">Read More</a>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-lg-3 col-md-6">
-                      <div className="coffee_img">
-                        <img src="images/img-3.png" />
-                      </div>
-                      <div className="coffee_box">
-                        <h3 className="types_text">COFFEE & PASTRY</h3>
-                        <p className="looking_text">
-                          looking at its layout. The point of
-                        </p>
-                        <div className="read_bt">
-                          <a href="#">Read More</a>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-lg-3 col-md-6">
-                      <div className="coffee_img">
-                        <img src="images/img-4.png" />
-                      </div>
-                      <div className="coffee_box">
-                        <h3 className="types_text">COFFEE TO GO</h3>
-                        <p className="looking_text">
-                          looking at its layout. The point of
-                        </p>
-                        <div className="read_bt">
-                          <a href="#">Read More</a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div> */}
-            </div>
-            {/* <a
-              className="carousel-control-prev"
-              href="#main_slider"
-              role="button"
-              data-slide="prev"
-            >
-              <i className="fa fa-arrow-left"></i>
-            </a>
-            <a
-              className="carousel-control-next"
-              href="#main_slider"
-              role="button"
-              data-slide="next"
-            >
-              <i className="fa fa-arrow-right"></i>
-            </a> */}
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+function Product() {
+  const navigate = useNavigate();
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    // Fetch categories from your API
+    const fetchCategories = async () => {
+      const response = await fetch('http://localhost:5000/api/v1/categories'); // Update with your API URL
+      const data = await response.json();
+      setCategories(data);
+    };
+
+    fetchCategories();
+  }, []);
+
+  const handleReadMore = (categoryId) => {
+    navigate(`/category/${categoryId}`);
+  };
+
+  return (
+    <div className="coffee_section layout_padding">
+      <div className="container">
+        <div className="row">
+          <div className="col-md-12">
+            <h1 className="coffee_taital">Top Categories to Explore</h1>
           </div>
         </div>
       </div>
-    )
+      <div className="coffee_section_2">
+        <div id="main_slider" className="carousel slide" data-ride="carousel">
+          <div className="carousel-inner">
+            <div className="carousel-item active">
+              <div className="container-fluid">
+                <div className="row">
+                  {categories.map((category) => (
+                    <div key={category.id} className="col-lg-3 col-md-6">
+                      <div className="coffee_img">
+                        <img src="images/seeds.jpg" alt={category.name} />
+                      </div>
+                      <div className="coffee_box">
+                        <h3 className="types_text">{category.name}</h3>
+                        <div className="read_bt">
+                          <button onClick={() => handleReadMore(category.id)}>Read More</button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default Product;
+

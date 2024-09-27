@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const authJwt = require('./helpers/jwt.js');
 const errorHandler = require('./helpers/error-handler.js');
+const path = require("path");
 
 require('dotenv').config();
 
@@ -16,6 +17,8 @@ app.options('*',cors())
 app.use(bodyParser.json());
 app.use(morgan('tiny'));
 app.use(authJwt());
+// Serve static files from the 'public/uploads' directory
+app.use('/public/uploads', express.static(path.join(__dirname, 'public/uploads')));
 app.use(errorHandler);
 
 const api = process.env.API_URL;

@@ -8,6 +8,7 @@ import Contact from "./Contact";
 import Footer from "./Footer";
 import CopyRight from "./CopyRight";
 import "bootstrap/dist/css/bootstrap.min.css";
+import ProductCategory from "./Product-Category";
 
 function Home() {
     return (
@@ -21,6 +22,7 @@ function Home() {
             {/* <Client /> */}
             {/* <Blog /> */}
             <Contact />
+            {/* <ProductCategory/> */}
             <Footer />
             <CopyRight />
         </div>
