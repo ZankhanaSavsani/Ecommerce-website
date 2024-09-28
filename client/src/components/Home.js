@@ -2,13 +2,10 @@ import NavBar from "./Navbar";
 import Banner from "./Banner";
 import About from "./About";
 import Product from "./Product";
-import Client from "./Client";
-import Blog from "./Blog";
 import Contact from "./Contact";
 import Footer from "./Footer";
 import CopyRight from "./CopyRight";
 import "bootstrap/dist/css/bootstrap.min.css";
-import ProductCategory from "./Product-Category";
 
 function Home() {
     return (
