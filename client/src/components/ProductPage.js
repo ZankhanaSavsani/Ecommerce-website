@@ -98,7 +98,7 @@ function ProductPage() {
 
         .product-image img {
           width: 500px;
-          height: auto;
+          height: 500px;
         }
 
         .product-details {

@@ -7,6 +7,7 @@ const cors = require('cors');
 const authJwt = require('./helpers/jwt.js');
 const errorHandler = require('./helpers/error-handler.js');
 const path = require("path");
+const verifyUser = require('./middleware/verifyUser.js');
 
 require('dotenv').config();
 
@@ -16,9 +17,18 @@ app.options('*',cors())
 //middleware
 app.use(bodyParser.json());
 app.use(morgan('tiny'));
+// app.use(verifyUser);
+
+// Serve static files
+app.use('/css', express.static('path_to_css_directory'));
+app.use('/images', express.static('path_to_images_directory'));
 app.use(authJwt());
+
+
 // Serve static files from the 'public/uploads' directory
 app.use('/public/uploads', express.static(path.join(__dirname, 'public/uploads')));
+
+
 app.use(errorHandler);
 
 const api = process.env.API_URL;

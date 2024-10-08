@@ -2,6 +2,46 @@ const express = require("express");
 const router = express.Router();
 const { Category } = require("../models/category");
 const mongoose = require("mongoose");
+const multer = require('multer');
+
+
+// Define the file type map for image uploads
+const FILE_TYPE_MAP = {
+  "image/png": "png",
+  "image/jpeg": "jpeg",
+  "image/jpg": "jpg",
+};
+
+// Set up multer for image storage
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    const isValid = FILE_TYPE_MAP[file.mimetype];
+    let uploadError = new Error("invalid image type");
+
+    if (isValid) {
+      uploadError = null;
+    }
+    cb(uploadError, "public/uploads");
+  },
+  filename: function (req, file, cb) {
+    if (!file || !file.originalname) {
+      return cb(new Error("File or file name not provided"));
+    }
+    const fileName = file.originalname
+      .split(" ")
+      .join("-")
+      .split(".")
+      .slice(0, -1)
+      .join(".");
+    const extension = FILE_TYPE_MAP[file.mimetype];
+    if (!extension) {
+      return cb(new Error("Invalid file type"));
+    }
+    cb(null, `${fileName}-${Date.now()}.${extension}`);
+  },
+});
+
+const uploadOptions = multer({ storage: storage });
 
 // GET all categories
 router.get(`/`, async (req, res) => {
@@ -96,13 +136,22 @@ router.delete("/:categoryId", async (req, res) => {
   }
 });
 
-// CREATE a new category
-router.post(`/`, async (req, res) => {
+// Create a new category with image upload
+router.post(`/`, uploadOptions.single("icon"), async (req, res) => {
   try {
-    // Create a new category with the provided data
+    // Check if the icon file exists
+    if (!req.file) {
+      return res.status(400).send("No image file uploaded");
+    }
+
+    // Extract the file name and construct the image URL
+    const fileName = req.file.filename;
+    const basePath = `${req.protocol}://${req.get("host")}/public/uploads/`;
+
+    // Create a new category with the provided data and image URL
     let category = new Category({
       name: req.body.name,
-      icon: req.body.icon,
+      icon: `${basePath}${fileName}`, // Save the image URL
       color: req.body.color,
     });
 

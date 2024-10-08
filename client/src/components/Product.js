@@ -36,14 +36,14 @@ function Product() {
               <div className="container-fluid">
                 <div className="row">
                   {categories.map((category) => (
-                    <div key={category.id} className="col-lg-3 col-md-6">
+                    <div key={category._id} className="col-lg-3 col-md-6">
                       <div className="coffee_img">
-                        <img src="images/seeds.jpg" alt={category.name} />
+                        <img src={category.icon} alt={category.name} /> {/* Display the category icon */}
                       </div>
                       <div className="coffee_box">
                         <h3 className="types_text">{category.name}</h3>
                         <div className="read_bt">
-                          <button onClick={() => handleReadMore(category.id)}>Read More</button>
+                          <button onClick={() => handleReadMore(category._id)}>View Products</button> {/* Use _id for consistency */}
                         </div>
                       </div>
                     </div>
@@ -59,4 +59,3 @@ function Product() {
 }
 
 export default Product;
-

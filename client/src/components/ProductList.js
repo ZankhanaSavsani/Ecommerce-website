@@ -27,8 +27,8 @@ const ProductList = ({ categoryId }) => {
                         <li key={product.id}>
                             <h3>{product.name}</h3>
                             <p>{product.description}</p>
-                            <p>Price: ${product.price}</p>
-                            <img src={product.image} alt={product.name} style={{ width: '100px' }} />
+                            <p>Price:{product.price}</p>
+                            <img src={product.image} alt={product.name} style={{  width: '100px', height: '100px', objectFit: 'cover' }} />
                         </li>
                     ))}
                 </ul>
