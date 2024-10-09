@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 function Banner(){
     return(
         <div className="banner_section layout_padding">
@@ -21,10 +22,10 @@ function Banner(){
                         </p>
                         <div className="btn_main">
                           <div className="about_bt active">
-                            <a href="#">About Us</a>
+                          <Link to='/about'>About Us</Link>
                           </div>
                           <div className="callnow_bt">
-                            <a href="#">Call Now</a>
+                          <Link to='/contact'>Call Now</Link>
                           </div>
                         </div>
                       </div>

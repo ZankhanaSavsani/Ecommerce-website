@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { UilBars, UilTimes } from '@iconscout/react-unicons';
+import { useNavigate } from 'react-router-dom';
 
 const NavBar = () => {
+  const navigate = useNavigate();
   const [isNavOpen, setIsNavOpen] = useState(false);
 
   const handleNavOpenClick = () => {
@@ -18,6 +20,11 @@ const NavBar = () => {
     console.log('User logged out');
   };
 
+  const handleLogin = () => {
+    // Add your logout logic here
+    navigate('/login'); 
+  };
+
   return (
     <nav className={`nav ${isNavOpen ? 'openNav' : ''}`}>
       <UilBars className="uil navOpenBtn" onClick={handleNavOpenClick} />
@@ -26,11 +33,12 @@ const NavBar = () => {
       <ul className="nav-links">
         <UilTimes className="uil navCloseBtn" onClick={handleNavCloseClick} />
         <li><Link to='/home'>Home</Link></li>
-        <li><Link to='/services'>Services</Link></li>
+        {/* <li><Link to='/services'>Services</Link></li> */}
         <li><Link to='/products'>Products</Link></li>
         <li><Link to='/contact'>Contact Us</Link></li>
         <li><Link to='/about'>About Us</Link></li>
-        <li><button className="logout-btn" onClick={handleLogout}>Logout</button></li>
+        {/* <li><button className="logout-btn" onClick={handleLogout}>Logout</button></li> */}
+        <li><button className="login-btn" onClick={handleLogin}>Login</button></li>
       </ul>
     </nav>
   );
