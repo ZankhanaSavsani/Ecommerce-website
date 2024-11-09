@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import axios from 'axios';
-import VerifyEmail from './VerifyEmail'; // Adjust the path based on your structure
 
 const RegistrationPage = () => {
   const navigate = useNavigate(); // Initialize navigate
@@ -10,7 +9,7 @@ const RegistrationPage = () => {
     name: '',
     email: '',
     password: '',
-    confirmPassword: '', // New field for confirm password
+    confirmPassword: '', 
     phone: '',
     street: '',
     apartment: '',
@@ -19,10 +18,13 @@ const RegistrationPage = () => {
     country: '',
   });
 
-  const [message, setMessage] = useState('');
+  // const [message, setMessage] = useState('');
+  const [verificationData, setVerificationData] = useState({ email: '', otp: '' });
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState('');
-  const [isVerifying, setIsVerifying] = useState(false); // New state for verification
+  const [showVerificationForm, setShowVerificationForm] = useState(false);
+  
+  // const [isVerifying, setIsVerifying] = useState(false); // New state for verification
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -35,6 +37,14 @@ const RegistrationPage = () => {
     setSuccessMessage('');
   };
 
+  const handleVerificationChange = (e) => {
+    const { name, value } = e.target;
+    setVerificationData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     
@@ -43,6 +53,18 @@ const RegistrationPage = () => {
       setError('Passwords do not match!');
       return;
     }
+
+    const handleVerification = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:5000/api/v1/users/verify-otp', verificationData);
+      setSuccessMessage(response.data.message || 'Verification successful! You can now log in.');
+      setError(null);
+      navigate('/login'); // Redirect to login on success
+    } catch (err) {
+      setError(err.response?.data?.message || 'Verification failed!');
+    }
+  };
 
     try {
       const response = await axios.post('http://localhost:5000/api/v1/users/register', formData);
@@ -60,10 +82,23 @@ const RegistrationPage = () => {
         city: '',
         country: '',
       });
-      setIsVerifying(true); // Show verification component on success
+      setShowVerificationForm(true); // Show verification form
+      // setIsVerifying(true); // Show verification component on success
     } catch (err) {
       setError(err.response?.data?.message || 'Registration failed!');
       setSuccessMessage('');
+    }
+  };
+
+  const handleVerification = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:5000/api/v1/users/verify-otp', verificationData);
+      setSuccessMessage(response.data.message || 'Verification successful! You can now log in.');
+      setError(null);
+      navigate('/login'); // Redirect to login on success
+    } catch (err) {
+      setError(err.response?.data?.message || 'Verification failed!');
     }
   };
 
@@ -72,14 +107,12 @@ const RegistrationPage = () => {
       <div className="shape left"></div> {/* Left circle */}
       <div className="shape right"></div> {/* Right circle */}
       <div className="registration-container">
-        <h3>Registration</h3>
+      <h3>{showVerificationForm ? 'Verify Email' : 'Registration'}</h3>
         {error && <p className="error">{error}</p>}
         {successMessage && <p className="success">{successMessage}</p>}
         
         {/* Render the verification component if the user is verifying */}
-        {isVerifying ? (
-          <VerifyEmail />
-        ) : (
+        {!showVerificationForm ? (
           <form onSubmit={handleSubmit} className="form-container">
             <div className="form-sections">
               <div className="form-section">
@@ -174,7 +207,14 @@ const RegistrationPage = () => {
               </button>
             </div>
           </form>
-        )}
+         ) : (
+          <form onSubmit={handleVerification} className="form-container">
+            {/* Verification Form */}
+            <input type="email" name="email" placeholder="Email" value={verificationData.email} onChange={handleVerificationChange} required />
+            <input type="text" name="otp" placeholder="OTP" value={verificationData.otp} onChange={handleVerificationChange} required />
+            <button type="submit">Verify</button>
+          </form>
+          )}
       </div>
 
       <style>{`
@@ -184,7 +224,7 @@ const RegistrationPage = () => {
           box-sizing: border-box;
         }
         body {
-          background-color: #080710;
+          background-color: #000000; /* Changed to black */
         }
         .background {
           width: 600px; 
@@ -213,7 +253,7 @@ const RegistrationPage = () => {
         .registration-container {
           height: auto;
           width: 900px; 
-          background-color: rgba(255, 255, 255, 0.13);
+          background-color: rgba(0, 0, 0, 0.8); /* Changed to black with some transparency */
           position: absolute;
           transform: translate(-50%, -50%);
           top: 50%;
@@ -258,7 +298,7 @@ const RegistrationPage = () => {
           margin-top: 8px;
           font-size: 14px;
           font-weight: 300;
-          color: #ffffff;
+          color: #ffffff; /* Keep text color white for visibility */
         }
         .buttons-section {
           display: flex;

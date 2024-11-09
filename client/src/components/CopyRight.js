@@ -1,3 +1,4 @@
+import "../css/copyright.css"
 function CopyRight(){
     return(
         <div className="copyright_section">

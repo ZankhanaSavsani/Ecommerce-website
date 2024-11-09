@@ -1,0 +1,151 @@
+
+.footer_section {
+    width: 100%;
+    float: left;
+    height: auto;
+    background-color: #1d1d1d;
+    background-size: 100%;
+    padding: 50px 0px;
+    margin-top: 20px;
+  }
+  
+  .address_text {
+    width: 100%;
+    float: left;
+    text-align: center;
+    font-size: 30px;
+    color: #fefefd;
+    font-weight: bold;
+    padding-bottom: 50px;
+  }
+  
+  .footer_text {
+    width: 60%;
+    margin: 0 auto;
+    font-size: 16px;
+    color: #fefefd;
+    text-align: center;
+  }
+  
+  .location_text {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 50px;
+  }
+  
+  .location_text ul {
+    margin: 0px;
+    padding: 0px;
+    display: inline-block;
+  }
+  
+  .location_text li {
+    float: left;
+    font-size: 16px;
+    color: #ffffff;
+    padding: 0px 10px 5px 10px;
+  }
+  
+  .location_text li a {
+    color: #ffffff;
+  }
+  
+  .location_text li a:hover {
+    color: #045215;
+  }
+  
+  .padding_left_10 {
+    padding-left: 10px;
+  }
+  
+  .social_icon {
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  .footer_social_icon {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .footer_social_icon ul {
+    margin: 0px;
+    padding: 0px;
+    display: inline-block;
+  }
+  
+  .footer_social_icon li {
+    float: left;
+  }
+  
+  .footer_social_icon li a {
+    float: left;
+    padding: 5px 10px;
+    background-color: #fff;
+    color: #1d1d1d;
+    border-radius: 100%;
+    font-size: 19px;
+    margin-right: 5px;
+    width: 44px;
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  .footer_social_icon li a:hover {
+    background-color: #ffffff;
+    color: #045215;
+  }
+  
+  .update_mail {
+    color: #383838;
+    width: 100%;
+    height: 55px;
+    font-size: 18px;
+    padding: 10px 20px 0px 20px;
+    background-color: #efefef;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+    display: block;
+    margin-top: 20px;
+    border: 1px solid #045215;
+  }
+  
+  textarea#comment.update_mail::placeholder {
+    color: #383838;
+  }
+  
+  .form-group {
+    margin-bottom: 1rem;
+    display: flex;
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .subscribe_bt {
+    width: 70px;
+    float: left;
+    padding-top: 20px;
+  }
+  
+  .subscribe_bt a {
+    width: 100%;
+    float: left;
+    color: #fefefd;
+    font-size: 16px;
+    padding: 13px 0px 14px 0px;
+    background-color: #045215;
+    text-transform: uppercase;
+    text-align: center;
+  }
+  
+  .subscribe_bt a:hover {
+    color: #fefefd;
+    background-color: #045215;
+  }
+  

@@ -14,12 +14,15 @@ function authJwt() {
       // Specify routes that do not require authentication
       path: [
         { url: /\/public\/uploads(.*)/, methods: ['GET', 'OPTIONS'] },
+        { url: /\/css\/(.*)/, methods: ['GET', 'OPTIONS'] },  
+        { url: /\/images\/(.*)/, methods: ['GET', 'OPTIONS'] },
         // { url: /\/api\/v1\/products/\category(.*)/, methods: ['GET', 'OPTIONS']},
         { url: /\/api\/v1\/products(.*)/, methods: ['GET', 'OPTIONS'] },
         { url: /\/api\/v1\/categories(.*)/, methods: ['GET', 'OPTIONS'] },
         { url: /\/api\/v1\/users\/verify-email(.*)/, methods: ['GET', 'OPTIONS'] },
         `${api}/users/login`, // Exclude login route
-        `${api}/users/register` // Exclude register route
+        `${api}/users/register`, // Exclude register route
+        `${api}/users/verify`
       ]
     });
   }

@@ -1,0 +1,45 @@
+/* client section start */
+
+.client_section {
+    width: 100%;
+    float: left;
+  }
+  
+  .client_taital_main {
+    display: flex;
+    padding-top: 30px;
+  }
+  
+  .client_left {
+    width: 20%;
+    float: left;
+  }
+  
+  .client_right {
+    width: 80%;
+    float: left;
+    padding-top: 20px;
+  }
+  
+  .moark_text {
+    font-size: 24px;
+    color: #3b3b3b;
+    font-weight: bold;
+  }
+  
+  .client_text {
+    font-size: 16px;
+    color: #3b3b3b;
+    margin: 0px;
+  }
+  
+  #custom_slider .carousel-control-next,
+  #custom_slider .carousel-control-prev {
+    width: 55px;
+    height: 55px;
+    color: #fefefd;
+    background-color: #4a4949;
+  }
+  
+  /* client section end */
+  

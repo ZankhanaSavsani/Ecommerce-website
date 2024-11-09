@@ -1,15 +1,20 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useParams, Link } from "react-router-dom";
 import Fuse from "fuse.js";
+import ReactStars from "react-rating-stars-component";
+import "../css/CategoryProducts.css";
 
 function CategoryProducts() {
   const { categoryId } = useParams();
+  const [cart, setCart] = useState([]);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [priceRange, setPriceRange] = useState([0, Infinity]);
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [quantity, setQuantity] = useState(1); // Default quantity is 1
 
   const sidebarRef = useRef(null);
 
@@ -67,12 +72,41 @@ function CategoryProducts() {
       return result.some(({ item }) => item.id === product.id);
     });
 
-  const renderStars = (rating) => {
-    return Array.from({ length: 5 }, (_, i) => (
-      <span key={i} className={`star ${i < rating ? "filled" : ""}`}>
-        ★
-      </span>
-    ));
+  const renderStars = (rating) => (
+    <ReactStars
+      count={5}
+      value={rating}
+      size={24}
+      activeColor="#ffd700"
+      edit={false}
+      isHalf={true}
+    />
+  );
+
+  const handleAddToCart = (product) => {
+    const updatedCart = [...cart];
+    const existingProductIndex = updatedCart.findIndex(
+      (item) => item.id === product.id
+    );
+
+    if (existingProductIndex >= 0) {
+      updatedCart[existingProductIndex].quantity += quantity; // Add quantity to existing item
+    } else {
+      updatedCart.push({ ...product, quantity }); // Add new item with selected quantity
+    }
+
+    setCart(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart)); 
+  };
+
+  const handleBuyNow = (product) => {
+    // Handle the buy now functionality (this could involve redirection to a checkout page)
+    handleAddToCart(product); // Add product to cart first
+    alert("Proceeding to checkout..."); // Placeholder for checkout functionality
+  };
+
+  const handleQuantityChange = (e) => {
+    setQuantity(Number(e.target.value)); // Update quantity in state
   };
 
   if (loading) return <p>Loading...</p>;
@@ -120,195 +154,58 @@ function CategoryProducts() {
         >
           {filteredProducts.length > 0 ? (
             filteredProducts.map((product) => (
-              <Link
-                to={`/product/${product.id}`}
-                className="product-item"
-                key={product.id}
-              >
-                <img src={product.image} alt={product.name} />
-                <h3>{product.name}</h3>
-                <p>{product.description}</p>
-                <p>Price: ${product.price}</p>
-                <button className="add-to-cart-btn">Add to Cart</button>
-                <div className="product-rating">{renderStars(product.rating)}</div>
-              </Link>
+              <div key={product.id} className="product-item">
+                <Link to={`/product/${product.id}`} className="product-link">
+                  <img src={product.image} alt={product.name} />
+                  <h3 className="product-name">{product.name}</h3>
+                  <p className="product-description">{product.description}</p>
+                  <p className="product-price">Price: ₹{product.price}</p>
+                  <div className="product-rating">
+                    {renderStars(product.rating)}
+                  </div>
+                </Link>
+
+                {/* Show quantity input only when the product is selected */}
+                {selectedProduct?.id === product.id && (
+                  <div>
+                    <label htmlFor={`quantity-${product.id}`}>Quantity: </label>
+                    <input
+                      type="number"
+                      id={`quantity-${product.id}`}
+                      name="quantity"
+                      min="1"
+                      value={quantity}
+                      onChange={handleQuantityChange}
+                    />
+                  </div>
+                )}
+                <div className="button-container">
+                  <button
+                    className="buy-now-btn"
+                    onClick={() => {
+                      setSelectedProduct(product); // Show quantity on "Buy Now"
+                      handleBuyNow(product); // Handle buy now action
+                    }}
+                  >
+                    Buy Now
+                  </button>
+                  <button
+                    className="add-to-cart-btn"
+                    onClick={() => {
+                      setSelectedProduct(product); // Show quantity on "Add to Cart"
+                      handleAddToCart(product); // Handle add to cart action
+                    }}
+                  >
+                    Add to Cart
+                  </button>
+                </div>
+              </div>
             ))
           ) : (
             <p>No products found.</p>
           )}
         </div>
       </div>
-
-      <style>{`
-        .category-products {
-          display: flex;
-          padding: 20px;
-          font-family: Arial, sans-serif;
-          position: relative;
-          flex-direction: column;
-          align-items: center;
-          width: 100%;
-        }
-
-        .category-title {
-          font-size: 24px;
-          font-weight: bold;
-          text-align: center;
-          width: 100%;
-          margin: 20px 0;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-
-        .category-title::before,
-        .category-title::after {
-          content: '';
-          flex: 1;
-          border-bottom: 1px solid #ddd;
-          margin: 0 20px;
-        }
-
-        .toggle-sidebar {
-          position: fixed;
-          top: 20px;
-          left: 20px;
-          padding: 10px 15px;
-          border: none;
-          background-color: #007bff;
-          color: white;
-          cursor: pointer;
-          border-radius: 5px;
-          font-size: 16px;
-          z-index: 1000;
-          transition: background-color 0.3s ease;
-        }
-
-        .toggle-sidebar:hover {
-          background-color: #0056b3;
-        }
-
-        .sidebar {
-          position: fixed;
-          top: 0;
-          left: -300px;
-          width: 300px;
-          height: 100%;
-          background-color: #f8f9fa;
-          border-right: 1px solid #ddd;
-          padding: 20px;
-          box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-          z-index: 999;
-          transition: transform 0.3s ease-in-out;
-        }
-
-        .sidebar.visible {
-          transform: translateX(300px);
-        }
-
-        .sidebar h3 {
-          margin: 20px 0;
-          font-size: 18px;
-          font-weight: 600;
-          text-align: center;
-        }
-
-        .sidebar button {
-          display: block;
-          width: 100%;
-          margin: 10px 0;
-          padding: 10px;
-          border: none;
-          background-color: #007bff;
-          color: white;
-          cursor: pointer;
-          border-radius: 5px;
-          transition: background-color 0.3s ease;
-        }
-
-        .sidebar button:hover {
-          background-color: #0056b3;
-        }
-
-        .search-bar {
-          margin-bottom: 20px;
-          padding: 10px;
-          width: 100%;
-          max-width: 400px;
-          font-size: 16px;
-          border: 1px solid #ddd;
-          border-radius: 5px;
-        }
-
-        .product-grid {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 20px;
-          justify-content: center;
-          width: 100%; 
-        }
-
-        /* Special rule when there’s only one product */
-        .product-grid.single-product .product-item {
-          max-width: 600px; 
-          width: 100%;
-          margin: 0 auto;
-        }
-
-        .product-item {
-          border: 1px solid #ddd;
-          border-radius: 8px;
-          padding: 15px;
-          margin: 15px;
-          text-align: center;
-          transition: transform 0.2s ease;
-          width: calc(33% - 20px); 
-          max-width: 300px;
-          flex: 1 1 calc(33% - 20px); 
-        }
-
-        .product-item:hover {
-          transform: scale(1.05);
-        }
-
-        .product-item img {
-          max-width: 200px;
-          height: 200px;
-          border-radius: 4px;
-          margin: 20px;
-        }
-
-        .add-to-cart-btn {
-          margin-top: 10px;
-          padding: 10px 15px;
-          background-color: #28a745;
-          color: white;
-          border: none;
-          cursor: pointer;
-          border-radius: 5px;
-          transition: background-color 0.3s ease;
-        }
-
-        .add-to-cart-btn:hover {
-          background-color: #218838;
-        }
-
-        .product-rating {
-          margin-top: 10px;
-          font-size: 16px;
-          font-weight: bold;
-        }
-
-        .star {
-          color: #ddd; 
-          font-size: 20px;
-          margin: 0 2px;
-        }
-
-        .star.filled {
-          color: gold;
-        }
-      `}</style>
     </div>
   );
 }

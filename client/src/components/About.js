@@ -1,3 +1,5 @@
+import "../css/about.css"
+
 function About(){
     return(
         <div className="about_section layout_padding">

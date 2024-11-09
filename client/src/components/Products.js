@@ -1,13 +1,13 @@
 import NavBar from "./Navbar";
 import Footer from "./Footer";
 import CopyRight from "./CopyRight";
-import Product from "./Product";
+import Category from "./Category";
 
 function Products(){
     return(
         <>
         <NavBar />
-        <Product />
+        <Category />
         <Footer />
         <CopyRight />
         </>

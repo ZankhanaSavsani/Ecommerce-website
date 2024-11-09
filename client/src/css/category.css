@@ -1,0 +1,125 @@
+/* Section container */
+.section {
+  width: 100%;
+  float: left;
+}
+
+/* Section title */
+.section_title {
+  width: 100%;
+  float: left;
+  font-size: 40px;
+  color: #3b3b3b;
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: bold;
+  padding-bottom: 0px;
+}
+
+/* Section 2 container */
+.section_2 {
+  width: 90%;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 40px;
+}
+
+/* Image container */
+.img_container img {
+  height: 15vmax;
+  width: 22vmax;
+  /* width: 100vmax; */
+  float: left;
+}
+
+/* Box container */
+.box {
+  width: 100%;
+  float: left;
+  background-color: #242c2f;
+  height: auto;
+  padding: 20px 20px;
+}
+
+/* Hover effect for box */
+.box:hover {
+  background-color: #045215;
+}
+
+/* Text inside the box */
+.types_text {
+  width: 100%;
+  float: left;
+  font-size: 22px;
+  color: #fefefd;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* Looking text styles */
+.looking_text {
+  width: 100%;
+  float: left;
+  font-size: 14px;
+  color: #fefefd;
+  text-align: center;
+  margin: 0px;
+}
+
+/* Button container */
+.read_bt {
+  width: 150px;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 20px;
+  display: flex;
+}
+
+/* Button styles */
+.read_bt a {
+  width: 100%;
+  float: left;
+  font-size: 16px;
+  color: #fefefd;
+  text-align: center;
+  border-radius: 5px;
+  border: 1px solid #fefefd;
+  text-transform: uppercase;
+  padding: 8px;
+}
+
+/* Button hover effect */
+.read_bt a:hover {
+  color: #fefefd;
+  border: 1px solid #fefefd;
+}
+
+/* Carousel control buttons */
+#main_slider a.carousel-control-prev {
+  left: -50px;
+  top: 170px;
+}
+
+#main_slider a.carousel-control-next {
+  right: -50px;
+  top: 170px;
+}
+
+#main_slider .carousel-control-next,
+#main_slider .carousel-control-prev {
+  width: 55px;
+  height: 55px;
+  opacity: 1;
+  font-size: 16px;
+  color: #fefefd;
+  background-color: #4a4949;
+}
+
+/* Carousel control hover effect */
+#main_slider .carousel-control-next:focus,
+#main_slider .carousel-control-next:hover,
+#main_slider .carousel-control-prev:focus,
+#main_slider .carousel-control-prev:hover {
+  color: #fefefd;
+  background-color: #045215;
+}

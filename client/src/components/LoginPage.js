@@ -97,7 +97,7 @@ const LoginPage = () => {
           box-sizing: border-box;
         }
         body {
-          background-color: #080710;
+          background-color: #000000; /* Changed background color to black */
         }
         .background {
           width: 430px;
@@ -126,7 +126,7 @@ const LoginPage = () => {
         form {
           height: 520px;
           width: 400px;
-          background-color: rgba(255, 255, 255, 0.13);
+          background-color: rgba(0, 0, 0, 0.7); /* Changed form background color to black */
           position: absolute;
           transform: translate(-50%, -50%);
           top: 50%;
@@ -139,7 +139,7 @@ const LoginPage = () => {
         }
         form * {
           font-family: 'Poppins', sans-serif;
-          color: #ffffff;
+          color: #ffffff; /* Text color remains white */
           letter-spacing: 0.5px;
           outline: none;
           border: none;
@@ -166,6 +166,7 @@ const LoginPage = () => {
           margin-top: 8px;
           font-size: 14px;
           font-weight: 300;
+          color: #ffffff; /* Input text color */
         }
         ::placeholder {
           color: #e5e5e5;

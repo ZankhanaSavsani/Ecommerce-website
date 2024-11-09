@@ -9,7 +9,7 @@ const userSchema = mongoose.Schema({
     email: {
         type: String,
         required: true,
-        // unique: true,
+        unique: true,
         // index: true
     },
     passwordHash: {
@@ -23,6 +23,10 @@ const userSchema = mongoose.Schema({
     isAdmin: {
         type: Boolean,
         default: false,
+    },
+    isVerified:{
+        type:Boolean,
+        default:false,
     },
     street: {
         type: String,
@@ -43,6 +47,14 @@ const userSchema = mongoose.Schema({
     country: {
         type: String,
         default: '',
+    },
+    otpHash:{
+        type: String,
+        default: '', 
+    },
+    otpExpiresIn:{
+        type: Date,
+        default: null,
     }
 });
 

@@ -1,3 +1,4 @@
+import "../css/footer.css"
 function Footer(){
     return(
         <div className="footer_section layout_padding">

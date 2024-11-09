@@ -24,6 +24,8 @@ app.use('/css', express.static('path_to_css_directory'));
 app.use('/images', express.static('path_to_images_directory'));
 app.use(authJwt());
 
+// Serve static files from the 'public' directory
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Serve static files from the 'public/uploads' directory
 app.use('/public/uploads', express.static(path.join(__dirname, 'public/uploads')));
@@ -38,7 +40,7 @@ const productsRouter = require('./routers/products.js');
 const usersRouter = require('./routers/users.js');
 const categoriesRouter = require('./routers/categories.js');
 const ordersRouter = require('./routers/orders.js');
-
+const cartRouter = require('./routers/shoppingCart.js');
 
 const mongoURI = process.env.CONNECTION_STRING;
 
@@ -46,6 +48,7 @@ app.use(`${api}/products`,productsRouter);
 app.use(`${api}/users`,usersRouter);
 app.use(`${api}/categories`,categoriesRouter);
 app.use(`${api}/orders`,ordersRouter);
+app.use(`${api}/cart`,cartRouter);
 
 //Database
 mongoose.connect(mongoURI,{

@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom';
+import "../css/banner.css"
+
 function Banner(){
     return(
         <div className="banner_section layout_padding">
