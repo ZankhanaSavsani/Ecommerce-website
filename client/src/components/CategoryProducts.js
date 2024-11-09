@@ -1,11 +1,13 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Fuse from "fuse.js";
 import ReactStars from "react-rating-stars-component";
+import { Link } from "react-router-dom";  
 import "../css/CategoryProducts.css";
 
 function CategoryProducts() {
   const { categoryId } = useParams();
+  const navigate = useNavigate(); // Hook to navigate to another page
   const [cart, setCart] = useState([]);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -15,6 +17,7 @@ function CategoryProducts() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [quantity, setQuantity] = useState(1); // Default quantity is 1
+  const [showPopup, setShowPopup] = useState(false); // State to control popup visibility
 
   const sidebarRef = useRef(null);
 
@@ -35,6 +38,12 @@ function CategoryProducts() {
     };
     fetchProducts();
   }, [categoryId]);
+
+  // Load cart from localStorage on initial render
+  useEffect(() => {
+    const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
+    setCart(savedCart);
+  }, []);
 
   const handleClickOutside = (event) => {
     if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
@@ -83,6 +92,7 @@ function CategoryProducts() {
     />
   );
 
+  // Handle Add to Cart functionality
   const handleAddToCart = (product) => {
     const updatedCart = [...cart];
     const existingProductIndex = updatedCart.findIndex(
@@ -96,13 +106,17 @@ function CategoryProducts() {
     }
 
     setCart(updatedCart);
-    localStorage.setItem("cart", JSON.stringify(updatedCart)); 
+    localStorage.setItem("cart", JSON.stringify(updatedCart)); // Ensure cart is persisted to localStorage
+
+    // Show pop-up message for 3 seconds
+    setShowPopup(true);
+    setTimeout(() => setShowPopup(false), 3000); // Hide after 3 seconds
   };
 
+  // Handle Buy Now functionality
   const handleBuyNow = (product) => {
-    // Handle the buy now functionality (this could involve redirection to a checkout page)
     handleAddToCart(product); // Add product to cart first
-    alert("Proceeding to checkout..."); // Placeholder for checkout functionality
+    navigate("/checkout"); // Redirect to checkout page after adding to cart
   };
 
   const handleQuantityChange = (e) => {
@@ -147,6 +161,11 @@ function CategoryProducts() {
             </button>
           </div>
         )}
+        {showPopup && (
+          <div className="popup-message">
+            Product added to cart!
+          </div>
+        )}
         <div
           className={`product-grid ${
             filteredProducts.length === 1 ? "single-product" : ""
@@ -180,15 +199,6 @@ function CategoryProducts() {
                   </div>
                 )}
                 <div className="button-container">
-                  <button
-                    className="buy-now-btn"
-                    onClick={() => {
-                      setSelectedProduct(product); // Show quantity on "Buy Now"
-                      handleBuyNow(product); // Handle buy now action
-                    }}
-                  >
-                    Buy Now
-                  </button>
                   <button
                     className="add-to-cart-btn"
                     onClick={() => {

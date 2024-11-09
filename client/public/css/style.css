@@ -21,17 +21,20 @@
   transition: ease all 0.5s;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
-body {
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: "Poppins", sans-serif;
   color: #666666;
   font-size: 14px;
-  font-family: "Poppins", sans-serif;
   line-height: 1.80857;
   font-weight: normal;
   overflow-x: hidden;
+  padding-top: 65px;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 a {

@@ -7,13 +7,14 @@
     background-color: #f9fafc;
     min-height: 100vh;
     color: #333;
+    margin-bottom: 0;
 }
 
 .product-content {
     display: flex;
     max-width: 900px;
     border: 1px solid #e0e0e0;
-    padding: 25px;
+    padding: 20px;
     border-radius: 15px;
     background-color: #fff;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
@@ -92,7 +93,7 @@
 }
 
 .thumbnail.selected {
-    border-color: #ffa500;
+    border-color: #06632d;
 }
 
 .details-section {
@@ -104,7 +105,7 @@
 }
 
 .limited-deal {
-    background-color: #ff9900;
+    background-color: #06632d;
     color: #fff;
     padding: 6px 12px;
     font-size: 0.9rem;
@@ -203,20 +204,20 @@ h2 {
 
 .buy-now-btn {
     color: #fff;
-    background-color: #ff9900;
+    background-color: #06632d;
     border: none;
 }
 
 .buy-now-btn:hover {
-    background-color: #ff8c00;
+    background-color: #06632d;
     transform: translateY(-3px);
     box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
 }
 
 .add-to-cart-btn {
-    color: #ff9900;
+    color: #06632d;
     background-color: #fff;
-    border: 0px solid #ff9900; 
+    border: 0px solid #06632d; 
 }
 
 .add-to-cart-btn:hover {
@@ -224,6 +225,39 @@ h2 {
     transform: translateY(-3px);
     box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
 }
+
+/* ProductDetails.css */
+
+.popup-message {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    z-index: 1000;
+    opacity: 0;
+    animation: popupAnimation 3s forwards;
+  }
+  
+  @keyframes popupAnimation {
+    0% {
+      opacity: 0;
+      top: 10px;
+    }
+    50% {
+      opacity: 1;
+      top: 20px;
+    }
+    100% {
+      opacity: 0;
+      top: 30px;
+    }
+  }
+  
 
 .back-btn {
     background: none;

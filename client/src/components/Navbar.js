@@ -18,7 +18,8 @@ const NavBar = () => {
   };
 
   const handleLogout = () => {
-    navigate('/login'); 
+    localStorage.removeItem('token');
+    window.location.href = '/login';
   };
 
   const handleLogin = () => {
@@ -53,7 +54,7 @@ const NavBar = () => {
       <ul className="nav-links">
         <UilTimes className="uil navCloseBtn" onClick={handleNavCloseClick} />
         <li><Link to='/home'>Home</Link></li>
-        <li><Link to='/products'>Products</Link></li>
+        <li><Link to='/categories'>Categories</Link></li>
         <li><Link to='/contact'>Contact Us</Link></li>
         <li><Link to='/about'>About Us</Link></li>
         <button className="cart-btn" onClick={goToCart}>

@@ -1,101 +1,145 @@
 
+.header_section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url(../../public/images/banner-bg.jpg);
+  height: 600px; /* Set a fixed height or use min-height if you need more flexibility */
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+.header_bg {
+  width: 100%;
+  float: left;
+  background: #1d1d1d;
+  height: auto;
+  background-size: 100%;
+}
+
+.bg-light {
+  background-color: transparent !important;
+}
+
+.mr-auto,
+.mx-auto {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.header_section {
+  background-color: #111111;
+}
+
+.header_section::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
 .banner_section {
   width: 100%;
   float: left;
   padding: 90px 0px 140px 0px;
+  /* background-color: rgba(255, 255, 255, 0.6); Light white overlay to enhance contrast */
 }
 
 .banner_taital_main {
   width: 100%;
   float: left;
+  padding: 0 20px;
 }
 
 .banner_taital {
   width: 100%;
   font-size: 80px;
-  color: #fefefd;
+  color: #ffffff; /* Bright white for text contrast against a green background */
   font-weight: 800;
   line-height: 90px;
+  text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.8), -4px -4px 8px rgba(0, 0, 0, 0.8), 2px 2px 10px rgba(0, 0, 0, 0.4); 
+  letter-spacing: 2px;
 }
 
 .banner_text {
   width: 100%;
   float: left;
-  font-size: 16px;
-  color: #fefefd;
+  font-size: 30px;
+  color: #ffffff; /* White text to stand out */
   margin: 20px 0px 0px 0px;
+  font-weight: 300;
+  line-height: 1.5;
+  text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.6), -3px -3px 6px rgba(0, 0, 0, 0.6);
 }
 
+.banner_taital:hover {
+  text-shadow: 6px 6px 12px rgba(0, 0, 0, 0.9), -6px -6px 12px rgba(0, 0, 0, 0.9); /* Hover effect for even deeper text shadow */
+}
+
+/* Button Section */
 .btn_main {
   width: 100%;
   float: left;
   padding-top: 40px;
   display: flex;
   justify-content: center;
+  gap: 20px; /* Space between buttons */
 }
 
-.about_bt {
-  width: 175px;
-  float: left;
+/* Individual Buttons */
+.about_bt, .callnow_bt {
+  width: auto; /* Let buttons adjust to content size */
+  height: 50px; /* Set a fixed height for consistency */
+  display: flex;
+  align-items: center; /* Vertically center the text */
+  justify-content: center; /* Horizontally center the text */
 }
 
-.about_bt a {
-  width: 100%;
-  float: left;
+/* Button Links */
+.about_bt a, .callnow_bt a {
   font-size: 18px;
-  background-color: #fefefd;
-  color: #1c130f;
+  background-color: #fefefd; /* Off-white for contrast */
+  color: #1c130f; /* Dark brown for a natural feel */
   text-align: center;
-  padding: 10px;
-  border-radius: 5px;
+  padding: 12px 30px; /* More padding to give the button more space */
+  border-radius: 30px; /* Round edges for a modern look */
   text-transform: uppercase;
+  font-weight: 600; /* Slightly bolder text */
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  text-decoration: none; /* Ensure no underlines */
 }
 
-.about_bt a:hover {
+/* Hover Effect */
+.about_bt a:hover, .callnow_bt a:hover {
   color: #fefefd;
-  background-color: #045215;
+  background-color: #045215; /* Deep green to match plants and nature */
+  transform: scale(1.1); /* Slight zoom effect for interactivity */
 }
 
-.about_bt.active a {
+/* Active Button State */
+.about_bt.active a, .callnow_bt.active a {
   color: #fefefd;
-  background-color: #045215;
-}
-
-.callnow_bt {
-  width: 175px;
-  float: left;
+  background-color: #045215; /* Deep green */
 }
 
 .callnow_bt a {
-  width: 100%;
-  float: left;
-  font-size: 18px;
-  background-color: #fefefd;
-  color: #1c130f;
-  text-align: center;
-  padding: 10px;
-  margin-left: 10px;
-  border-radius: 5px;
-  text-transform: uppercase;
+  margin-left: 20px; /* Add space between the two buttons */
 }
 
-.callnow_bt a:hover {
+/* Mobile View (Optional): Adjust button size on smaller screens */
+@media (max-width: 768px) {
+  .about_bt a, .callnow_bt a {
+    font-size: 16px; /* Smaller font size on mobile */
+    padding: 10px 25px; /* Adjust padding for mobile */
+    height: 45px; /* Reduce height for mobile */
+  }
+}
+
+#banner_slider a.carousel-control-prev, #banner_slider a.carousel-control-next {
   color: #fefefd;
-  background-color: #045215;
-}
-
-#banner_slider a.carousel-control-prev {
-  left: 0px;
-  top: 411px;
-  right: 60px;
-}
-
-#banner_slider a.carousel-control-next {
-  right: 0px;
-  top: 411px;
-  left: 60px;
-  color: #fefefd;
-  background-color: #045215;
+  background-color: rgba(4, 82, 21, 0.8); /* Green with transparency */
+  border-radius: 50%;
 }
 
 #banner_slider .carousel-control-next,
@@ -122,4 +166,8 @@
   width: 100%;
   float: left;
   text-align: center;
+  /* background: url('../../public/images/banner-bg.jpg') no-repeat center center; Background image */
+  background-size: cover;
+  height: 100%;
+  opacity: 0.8;
 }

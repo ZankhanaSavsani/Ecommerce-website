@@ -1,71 +1,109 @@
-
+/* General Section Styling */
 .about_section {
   width: 100%;
-  float: left;
+  padding: 60px 0;
+  background-color: #f9f9f9;
 }
 
 .about_section_2 {
-  width: 100%;
-  float: left;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+/* About Title */
 .about_taital {
-  width: 100%;
-  float: left;
-  font-size: 40px;
-  color: #3b3b3b;
+  font-size: 36px;
+  color: #2b2b2b;
   text-transform: uppercase;
-  font-weight: bold;
-  padding-bottom: 0px;
+  font-weight: 700;
+  padding-bottom: 10px;
+  text-align: left;
+  letter-spacing: 1px;
 }
 
+/* Subtitle */
+.about_taital_1 {
+  font-size: 24px;
+  color: #3a3a3a;
+  margin: 15px 0;
+  text-align: left;
+}
+
+/* Text Box */
 .about_taital_box {
-  width: 100%;
-  float: left;
-  padding-top: 15px;
+  padding: 15px 20px;
+}
+
+/* About Text */
+.about_text {
+  font-size: 16px;
+  color: #555;
+  line-height: 1.8;
+  margin: 15px 0;
+  text-align: left;
+}
+
+/* Read More Button */
+.readmore_btn {
+  margin-top: 30px;
+}
+
+.readmore_btn a {
+  font-size: 16px;
+  color: #fff;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  display: inline-block;
+  text-align: center;
+  border-radius: 5px;
+  background-color: #06632d;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.readmore_btn a:hover {
+  background-color: #04451a;
+  transform: translateY(-3px);
+}
+
+/* Image Styling */
+.image_iman {
+  text-align: center;
+  padding: 20px;
 }
 
 .about_img {
   width: 100%;
+  max-width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.about_taital_1 {
-  width: 100%;
-  float: left;
-  font-size: 30px;
-  color: #3b3b3b;
-  margin: 10px 0px;
+.about_img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
 }
 
-.about_text {
-  width: 100%;
-  float: left;
-  font-size: 16px;
-  color: #232222;
-  margin: 0px;
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .about_taital {
+    font-size: 28px;
+    text-align: center;
+  }
+  
+  .about_taital_1 {
+    font-size: 22px;
+    text-align: center;
+  }
+  
+  .about_text {
+    font-size: 15px;
+    text-align: center;
+  }
+  
+  .readmore_btn {
+    text-align: center;
+  }
 }
-
-.readmore_btn {
-  width: 170px;
-  float: left;
-  margin-top: 40px;
-}
-
-.readmore_btn a {
-  width: 100%;
-  float: left;
-  font-size: 18px;
-  color: #045215;
-  text-transform: uppercase;
-  border-radius: 5px;
-  border: 1px solid #045215;
-  padding: 10px;
-  border-radius: 5px;
-  text-align: center;
-}
-
-.readmore_btn a:hover {
-  color: #4a4949;
-  border: 1px solid #4a4949;
-}
-

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import ReactStars from "react-rating-stars-component"; // Import ReactStars component
+import ReactStars from "react-rating-stars-component";
 import "../css/ProductDetails.css";
 
 const ProductDetails = () => {
@@ -11,6 +11,7 @@ const ProductDetails = () => {
   const [mainImage, setMainImage] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showPopup, setShowPopup] = useState(false); // State to control popup visibility
 
   useEffect(() => {
     const fetchProductDetails = async () => {
@@ -20,7 +21,7 @@ const ProductDetails = () => {
         );
         const data = response.data;
         setProduct(data);
-        setMainImage(data.images?.[0] || data.image); // Set main image from product data
+        setMainImage(data.images?.[0] || data.image);
       } catch (err) {
         setError("Failed to load product details.");
       } finally {
@@ -34,26 +35,44 @@ const ProductDetails = () => {
   if (error) return <p>{error}</p>;
   if (!product) return <p>Product not found.</p>;
 
+  const handleAddToCart = () => {
+    // Assuming you store cart data in localStorage
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const updatedCart = [...cart, { ...product, quantity: 1 }];
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+
+    // Show the popup for a short time
+    setShowPopup(true);
+    setTimeout(() => setShowPopup(false), 3000); // Hide after 3 seconds
+  };
+
+  const handleBuyNow = () => {
+    navigate("/checkout", { state: { cart: [{ ...product, quantity: 1 }] } });
+  };
+
   return (
     <div className="product-details-container">
       <button className="back-btn" onClick={() => navigate(-1)}>
         ← Back to Products
       </button>
 
+      {showPopup && (
+        <div className="popup-message">
+          Product added to cart!
+        </div>
+      )}
+
       <div className="product-content">
         <div className="image-section">
           <img src={mainImage} alt={product.name} className="main-image" />
           <div className="thumbnail-gallery">
-            {/* Display the main image three times in the thumbnail gallery */}
             {[...Array(3)].map((_, index) => (
               <img
                 key={index}
                 src={mainImage}
                 alt={`Thumbnail ${index + 1}`}
-                className={`thumbnail ${
-                  mainImage === mainImage ? "selected" : ""
-                }`}
-                onClick={() => setMainImage(mainImage)} // Clicking any thumbnail keeps the main image
+                className="thumbnail"
+                onClick={() => setMainImage(mainImage)}
               />
             ))}
           </div>
@@ -74,18 +93,22 @@ const ProductDetails = () => {
           <div className="rating">
             Rating:
             <ReactStars
-              count={5} // Total number of stars
-              value={product.rating} // Decimal rating value
-              size={24} // Size of stars
-              isHalf={true} // Enable half-star support
-              edit={false} // Make stars read-only
-              activeColor="#ffd700" // Color for filled stars
+              count={5}
+              value={product.rating}
+              size={24}
+              isHalf={true}
+              edit={false}
+              activeColor="#ffd700"
             />
           </div>
           <p className="description">{product.description}</p>
           <div className="button-container">
-            <button className="buy-now-btn">Buy Now</button>
-            <button className="add-to-cart-btn">Add to Cart</button>
+            <button className="buy-now-btn" onClick={handleBuyNow}>
+              Buy Now
+            </button>
+            <button className="add-to-cart-btn" onClick={handleAddToCart}>
+              Add to Cart
+            </button>
           </div>
         </div>
       </div>

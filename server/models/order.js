@@ -46,6 +46,10 @@ const orderSchema = mongoose.Schema({
         type: Date,
         default: Date.now,
     },
+    paymentMethod: { 
+        type: String,
+        default: "Cash on Delivery", 
+    },
 })
 
 // Create a virtual field 'id' that returns the string representation of the _id field

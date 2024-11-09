@@ -1,48 +1,46 @@
 import styled from 'styled-components';
 
 const Wrapper = styled.section`
-  padding: 9rem 0 5rem 0;
+  padding: 6rem 0 4rem 0;
   text-align: center;
   color: #333;
   font-family: 'Arial', sans-serif;
 
   iframe {
-    margin-top: 5rem;
+    margin-top: 3rem;
+    border-radius: 12px;
+    box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.1);
   }
 
   .common-heading {
-    font-size: 3rem;
-    margin-bottom: 2rem;
-    color: green; /* Changed to green */
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    color: #045215;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    background: none; /* Removed gradient background */
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: inherit; /* Removed transparent fill */
+    letter-spacing: 0.08em;
   }
 
   .container {
-    margin-top: 4rem;
-    position: relative; /* Add position relative to container */
+    margin-top: 3rem;
+    position: relative;
 
     .contact-form {
-      max-width: 40rem;
+      max-width: 30rem;
       margin: auto;
-      background-color: #fff;
-      padding: 2rem;
-      border-radius: 15px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-      transition: box-shadow 0.3s ease; /* Removed transform transition */
-      /* Added a fixed height to prevent movement from transform */
+      background-color: #f9fbfd;
+      padding: 1.5rem 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.3s ease;
 
       &:hover {
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
       }
 
       .contact-inputs {
         display: flex;
         flex-direction: column;
-        gap: 1.5rem;
+        gap: 1rem;
 
         .input-container {
           position: relative;
@@ -51,61 +49,59 @@ const Wrapper = styled.section`
           input,
           textarea {
             width: 100%;
-            padding: 0.8rem;
-            border-radius: 8px;
+            padding: 0.6rem 0.8rem;
+            border-radius: 6px;
             border: 1px solid #ccc;
             font-size: 0.9rem;
             outline: none;
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            background-color: #fff;
 
             &:focus {
-              border-color: #007bff;
-              box-shadow: 0 0 10px rgba(0, 123, 255, 0.1);
+              border-color: #045215;
+              box-shadow: 0 0 8px rgba(4, 82, 21, 0.1);
             }
 
             &:focus + label,
             &:not(:placeholder-shown) + label {
-              transform: translateY(-2.5rem);
+              transform: translateY(-1.8rem) scale(0.85);
               font-size: 0.75rem;
-              color: #007bff;
-            }
-
-            &:focus + label {
-              color: #007bff;
+              color: #045215;
             }
           }
 
           textarea {
             resize: vertical;
-            padding-bottom: 0.3rem;
+            padding-bottom: 0.5rem;
           }
 
           label {
             position: absolute;
-            left: 1rem;
-            top: 1.2rem;
+            left: 0.8rem;
+            top: 1rem;
             color: #666;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             pointer-events: none;
             transition: all 0.2s ease;
             transform-origin: left;
-            transform: translateY(0);
           }
         }
 
         input[type="submit"] {
           cursor: pointer;
-          background: green; /* Changed to green */
+          background: #045215;
           color: white;
           border: none;
           padding: 0.8rem;
-          border-radius: 8px;
-          font-size: 1rem;
+          border-radius: 6px;
+          font-size: 0.95rem;
+          font-weight: bold;
           transition: background 0.3s, transform 0.2s;
+          box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.1);
 
           &:hover {
-            background: darkgreen; /* Changed to a darker green on hover */
-            transform: scale(1.05);
+            background: #033b13;
+            transform: scale(1.03);
           }
 
           &:active {
@@ -116,6 +112,7 @@ const Wrapper = styled.section`
     }
   }
 `;
+
 
 const Contact = () => {
   return (

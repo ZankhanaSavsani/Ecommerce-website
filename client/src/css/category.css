@@ -1,125 +1,220 @@
-/* Section container */
+/* General Layout */
 .section {
   width: 100%;
   float: left;
+  padding: 40px 0;
+  background-color: #f5f5f5;
 }
 
-/* Section title */
 .section_title {
   width: 100%;
-  float: left;
-  font-size: 40px;
-  color: #3b3b3b;
+  font-size: 36px;
+  color: #333;
   text-transform: uppercase;
   text-align: center;
-  font-weight: bold;
-  padding-bottom: 0px;
+  font-weight: 700;
+  padding-bottom: 20px;
+  letter-spacing: 1px;
+  transition: color 0.3s ease;
 }
 
-/* Section 2 container */
+.section_title:hover {
+  color: #06632d;  /* Color change on hover */
+}
+
+/* Container */
 .section_2 {
   width: 90%;
   margin: 0 auto;
   text-align: center;
   padding-top: 40px;
+  transition: transform 0.3s ease;
 }
 
-/* Image container */
+.section_2:hover {
+  transform: scale(1.02);  /* Subtle zoom effect on hover */
+}
+
+/* Image Container */
+.img_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
 .img_container img {
   height: 15vmax;
   width: 22vmax;
-  /* width: 100vmax; */
-  float: left;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Box container */
+.img_container img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Box Styling */
 .box {
   width: 100%;
-  float: left;
   background-color: #242c2f;
-  height: auto;
-  padding: 20px 20px;
+  padding: 15px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Hover effect for box */
 .box:hover {
-  background-color: #045215;
+  background-color: #06632d;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-/* Text inside the box */
+/* Text Styles */
 .types_text {
-  width: 100%;
-  float: left;
-  font-size: 22px;
-  color: #fefefd;
+  font-size: 20px;
+  color: #fff;
   text-align: center;
   font-weight: bold;
+  margin: 10px 0;
+  transition: color 0.3s ease;
 }
 
-/* Looking text styles */
+.types_text:hover {
+  color: #e6e6e6;
+}
+
 .looking_text {
-  width: 100%;
-  float: left;
   font-size: 14px;
-  color: #fefefd;
+  color: #ccc;
   text-align: center;
   margin: 0px;
+  line-height: 1.5;
+  transition: color 0.3s ease;
 }
 
-/* Button container */
+.looking_text:hover {
+  color: #999;  /* Subtle color change on hover */
+}
+
+/* Button */
 .read_bt {
-  width: 150px;
+  width: 160px;
   margin: 0 auto;
   text-align: center;
   padding-top: 20px;
-  display: flex;
 }
 
-/* Button styles */
 .read_bt a {
-  width: 100%;
-  float: left;
-  font-size: 16px;
-  color: #fefefd;
-  text-align: center;
+  font-size: 15px;
+  color: #fff;
+  background-color: #06632d;
   border-radius: 5px;
-  border: 1px solid #fefefd;
   text-transform: uppercase;
-  padding: 8px;
+  padding: 10px 0;
+  display: inline-block;
+  width: 100%;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
-/* Button hover effect */
 .read_bt a:hover {
-  color: #fefefd;
-  border: 1px solid #fefefd;
+  background-color: #04451a;
+  transform: translateY(-3px);
 }
 
-/* Carousel control buttons */
+/* Category Link */
+.category-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.category-link:hover {
+  text-decoration: none;
+}
+
+/* Carousel Controls */
 #main_slider a.carousel-control-prev {
-  left: -50px;
-  top: 170px;
+  left: -40px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 #main_slider a.carousel-control-next {
-  right: -50px;
-  top: 170px;
+  right: -40px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 #main_slider .carousel-control-next,
 #main_slider .carousel-control-prev {
-  width: 55px;
-  height: 55px;
-  opacity: 1;
+  width: 45px;
+  height: 45px;
   font-size: 16px;
-  color: #fefefd;
-  background-color: #4a4949;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
 }
 
-/* Carousel control hover effect */
-#main_slider .carousel-control-next:focus,
 #main_slider .carousel-control-next:hover,
-#main_slider .carousel-control-prev:focus,
 #main_slider .carousel-control-prev:hover {
-  color: #fefefd;
-  background-color: #045215;
+  background-color: #06632d;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .section_title {
+    font-size: 28px;
+  }
+
+  .img_container img {
+    height: 20vmax;
+    width: 30vmax;
+  }
+
+  .types_text {
+    font-size: 18px;
+  }
+
+  .looking_text {
+    font-size: 12px;
+  }
+
+  .read_bt a {
+    font-size: 14px;
+    padding: 8px 0;
+  }
+
+  .section_2 {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .section_title {
+    font-size: 24px;
+  }
+
+  .img_container img {
+    height: 25vmax;
+    width: 35vmax;
+  }
+
+  .types_text {
+    font-size: 16px;
+  }
+
+  .looking_text {
+    font-size: 12px;
+  }
+
+  .read_bt a {
+    font-size: 13px;
+    padding: 6px 0;
+  }
 }

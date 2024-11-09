@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../css/CartPage.css";
 
 function CartPage() {
+  const navigate = useNavigate();
   const [cart, setCart] = useState([]);
 
   useEffect(() => {
@@ -34,6 +35,11 @@ function CartPage() {
 
   const getTotalPrice = () => {
     return cart.reduce((total, item) => total + item.price * item.quantity, 0);
+  };
+
+  const proceedToCheckout = () => {
+    // Pass cart data to checkout page
+    navigate("/checkout", { state: { cart } });
   };
 
   return (
@@ -83,7 +89,7 @@ function CartPage() {
           <button
             className="checkout-btn"
             disabled={cart.length === 0}
-            onClick={() => alert("Proceeding to checkout...")}
+            onClick={proceedToCheckout}
           >
             Proceed to Checkout
           </button>

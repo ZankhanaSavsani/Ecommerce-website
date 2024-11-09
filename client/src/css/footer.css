@@ -1,151 +1,193 @@
-
 .footer_section {
-    width: 100%;
-    float: left;
-    height: auto;
-    background-color: #1d1d1d;
-    background-size: 100%;
-    padding: 50px 0px;
-    margin-top: 20px;
-  }
-  
+  width: 100%;
+  background-color: rgba(29, 29, 29, 0.5);
+  padding: 4rem 0;
+  color: #fefefd;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.footer_section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('../../public/images/footer_image.jpg') no-repeat center center;
+  background-size: cover;
+  opacity: 0.3; /* Slight opacity for background image */
+  z-index: -1;
+  text-decoration: none;
+}
+
+.address_text {
+  font-size: 2.4rem;
+  font-weight: 700;
+  margin-bottom: 30px;
+  color: #fefefd;
+  letter-spacing: 0.05em;
+}
+
+.footer_text {
+  max-width: 800px;
+  margin: 0 auto 40px auto;
+  font-size: 1rem;
+  color: #fefefd;
+  line-height: 1.7;
+}
+
+.location_text {
+  margin-top: 40px;
+}
+
+.location_text ul {
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+}
+
+.location_text li {
+  margin: 0 25px;
+  font-size: 16px;
+  color: #fff;
+}
+
+.location_text li a {
+  color: #fff;
+  display: flex;
+  align-items: center;
+  text-decoration: none; /* Remove underline */
+}
+
+.location_text li a:hover {
+  color: #045215;
+  text-decoration: none; /* Remove underline on hover */
+}
+
+.location_text i {
+  margin-right: 10px;
+  text-decoration: none;
+}
+
+.footer_social_icon {
+  margin-top: 40px;
+}
+
+.footer_social_icon ul {
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+}
+
+.footer_social_icon li {
+  margin: 0 20px;
+}
+
+.footer_social_icon li a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  color: #1d1d1d;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 1.6rem;
+  transition: background-color 0.3s, color 0.3s;
+  text-decoration: none; /* Remove underline */
+}
+
+.footer_social_icon li a:hover {
+  background-color: #045215;
+  color: #fff;
+  text-decoration: none; /* Remove underline on hover */
+}
+
+.subscribe_bt a {
+  background-color: #045215;
+  color: #fff;
+  text-transform: uppercase;
+  padding: 14px 25px;
+  border-radius: 50px;
+  text-align: center;
+  font-size: 16px;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+  text-decoration: none; /* Remove underline */
+}
+
+.subscribe_bt a:hover {
+  background-color: #333;
+  text-decoration: none; /* Remove underline on hover */
+}
+
+.update_mail {
+  color: #383838;
+  background-color: #efefef;
+  margin: 20px auto;
+  padding: 12px 20px;
+  width: 100%;
+  max-width: 450px;
+  border: 1px solid #045215;
+  border-radius: 25px;
+  font-size: 16px;
+  text-align: center;
+  outline: none;
+  text-decoration: none;
+}
+
+.update_mail::placeholder {
+  color: #383838;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.footer_section a {
+  text-decoration: none; /* Remove underline from all links */
+}
+
+.footer_section a:hover {
+  text-decoration: none; /* Ensure underline is removed on hover */
+}
+
+.location_text li a:hover,
+.footer_social_icon li a:hover,
+.subscribe_bt a:hover {
+  text-decoration: none; /* Ensure underline is removed on hover */
+}
+
+@media (max-width: 768px) {
   .address_text {
-    width: 100%;
-    float: left;
-    text-align: center;
-    font-size: 30px;
-    color: #fefefd;
-    font-weight: bold;
-    padding-bottom: 50px;
+    font-size: 2rem;
   }
-  
+
   .footer_text {
-    width: 60%;
-    margin: 0 auto;
-    font-size: 16px;
-    color: #fefefd;
-    text-align: center;
+    font-size: 14px;
   }
-  
-  .location_text {
-    width: 100%;
-    margin: 0 auto;
-    text-align: center;
-    padding-top: 50px;
-  }
-  
+
+  .footer_social_icon ul,
   .location_text ul {
-    margin: 0px;
-    padding: 0px;
-    display: inline-block;
+    flex-direction: column;
   }
-  
+
+  .footer_social_icon li,
   .location_text li {
-    float: left;
-    font-size: 16px;
-    color: #ffffff;
-    padding: 0px 10px 5px 10px;
+    margin-bottom: 10px;
   }
-  
-  .location_text li a {
-    color: #ffffff;
+
+  .location_text li {
+    margin: 5px 0;
   }
-  
-  .location_text li a:hover {
-    color: #045215;
-  }
-  
-  .padding_left_10 {
-    padding-left: 10px;
-  }
-  
-  .social_icon {
-    width: 100%;
-    display: inline-block;
-    text-align: center;
-    margin-top: 10px;
-  }
-  
-  .footer_social_icon {
-    width: 100%;
-    margin: 0 auto;
-    text-align: center;
-  }
-  
-  .footer_social_icon ul {
-    margin: 0px;
-    padding: 0px;
-    display: inline-block;
-  }
-  
-  .footer_social_icon li {
-    float: left;
-  }
-  
+
   .footer_social_icon li a {
-    float: left;
-    padding: 5px 10px;
-    background-color: #fff;
-    color: #1d1d1d;
-    border-radius: 100%;
-    font-size: 19px;
-    margin-right: 5px;
-    width: 44px;
-    text-align: center;
-    margin-top: 10px;
+    width: 45px;
+    height: 45px;
+    font-size: 1.4rem;
   }
-  
-  .footer_social_icon li a:hover {
-    background-color: #ffffff;
-    color: #045215;
-  }
-  
-  .update_mail {
-    color: #383838;
-    width: 100%;
-    height: 55px;
-    font-size: 18px;
-    padding: 10px 20px 0px 20px;
-    background-color: #efefef;
-    margin: 0 auto;
-    justify-content: center;
-    align-items: center;
-    display: block;
-    margin-top: 20px;
-    border: 1px solid #045215;
-  }
-  
-  textarea#comment.update_mail::placeholder {
-    color: #383838;
-  }
-  
-  .form-group {
-    margin-bottom: 1rem;
-    display: flex;
-    width: 50%;
-    margin: 0 auto;
-    text-align: center;
-  }
-  
-  .subscribe_bt {
-    width: 70px;
-    float: left;
-    padding-top: 20px;
-  }
-  
-  .subscribe_bt a {
-    width: 100%;
-    float: left;
-    color: #fefefd;
-    font-size: 16px;
-    padding: 13px 0px 14px 0px;
-    background-color: #045215;
-    text-transform: uppercase;
-    text-align: center;
-  }
-  
-  .subscribe_bt a:hover {
-    color: #fefefd;
-    background-color: #045215;
-  }
-  
+}

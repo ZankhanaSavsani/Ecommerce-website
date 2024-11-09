@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import "../css/category.css"
-function Product() {
-  const navigate = useNavigate();
+
+function Category() {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    // Fetch categories from your API
     const fetchCategories = async () => {
       const response = await fetch('http://localhost:5000/api/v1/categories'); // Update with your API URL
       const data = await response.json();
@@ -15,10 +14,6 @@ function Product() {
 
     fetchCategories();
   }, []);
-
-  const handleReadMore = (categoryId) => {
-    navigate(`/category/${categoryId}`);
-  };
 
   return (
     <div className="section layout_padding">
@@ -37,15 +32,14 @@ function Product() {
                 <div className="row">
                   {categories.map((category) => (
                     <div key={category._id} className="col-lg-3 col-md-6">
-                      <div className="img_container">
-                        <img src={category.icon} alt={category.name} /> {/* Display the category icon */}
-                      </div>
-                      <div className="box">
-                        <h3 className="types_text">{category.name}</h3>
-                        <div className="read_bt">
-                          <button onClick={() => handleReadMore(category._id)}>View Products</button> {/* Use _id for consistency */}
+                      <Link to={`/category/${category._id}`} className="category-link">
+                        <div className="img_container">
+                          <img src={category.icon} alt={category.name} />
                         </div>
-                      </div>
+                        <div className="box">
+                          <h3 className="types_text">{category.name}</h3>
+                        </div>
+                      </Link>
                     </div>
                   ))}
                 </div>
@@ -58,4 +52,4 @@ function Product() {
   );
 }
 
-export default Product;
+export default Category;
