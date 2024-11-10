@@ -66,7 +66,7 @@ const Wrapper = styled.section`
 
             &:focus + label,
             &:not(:placeholder-shown) + label {
-              transform: translateY(-1.8rem) scale(0.85);
+              transform: translateY(-2rem) scale(0.85);
               font-size: 0.75rem;
               color: #045215;
             }
