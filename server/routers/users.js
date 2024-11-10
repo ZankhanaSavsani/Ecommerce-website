@@ -3,18 +3,18 @@ const router = express.Router();
 const { User } = require("../models/user");
 const bcrypt = require("bcryptjs"); // Import bcrypt for password hashing
 const jwt = require("jsonwebtoken");
-const nodemailer = require('nodemailer');
+const nodemailer = require("nodemailer");
 
 // Helper function to generate OTP
 const generateOTPWithExpiry = () => ({
   otp: Math.floor(100000 + Math.random() * 900000).toString(),
-  expiresIn: Date.now() + 10 * 60 * 1000 // OTP expires in 10 minutes
+  expiresIn: Date.now() + 10 * 60 * 1000, // OTP expires in 10 minutes
 });
 
 // Send OTP via email
 const sendOTPEmail = async (email, otp) => {
   const transporter = nodemailer.createTransport({
-    service: 'gmail',
+    service: "gmail",
     auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASSWORD,
@@ -24,13 +24,60 @@ const sendOTPEmail = async (email, otp) => {
   const mailOptions = {
     from: `"Your Company" <${process.env.EMAIL_USER}>`,
     to: email,
-    subject: 'Email Verification OTP',
+    subject: "Email Verification OTP",
     text: `Your OTP for email verification is ${otp}.`,
   };
 
   await transporter.sendMail(mailOptions);
 };
 
+// Helper function to send email
+const sendContactEmail = async (contactData) => {
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASSWORD,
+    },
+    tls: {
+      rejectUnauthorized: false,  // Optional: Might help with connection issues
+    },
+  });
+
+  const mailOptions = {
+    from: `"Contact Form" <${process.env.EMAIL_USER}>`,
+    to: process.env.CONTACT_EMAIL, // Set this to your preferred email address
+    subject: "New Contact Form Submission",
+    text: `You have received a new message from ${contactData.username} (${contactData.email}):\n\n${contactData.message}`,
+  };
+
+  await transporter.sendMail(mailOptions);
+};
+
+// POST route to handle contact form submission
+router.post("/contact", async (req, res) => {
+  const { username, email, message } = req.body;
+
+  // Check if required fields are present
+  if (!username || !email || !message) {
+    return res
+      .status(400)
+      .json({ success: false, message: "All fields are required." });
+  }
+
+  try {
+    // Send email using the helper function
+    await sendContactEmail({ username, email, message });
+    res
+      .status(200)
+      .json({ success: true, message: "Message sent successfully!" });
+  } catch (error) {
+    console.error("Error sending email:", error);
+    res
+      .status(500)
+      .json({ success: false, message: "Failed to send message." });
+  }
+});
 
 // Send verification email function
 // async function sendVerificationEmail(email, token) {
@@ -92,12 +139,10 @@ router.get("/:id", async (req, res) => {
 
     // Check if the user was found
     if (!user) {
-      return res
-        .status(404)
-        .json({
-          success: false,
-          message: "The user with the given ID was not found.",
-        });
+      return res.status(404).json({
+        success: false,
+        message: "The user with the given ID was not found.",
+      });
     }
 
     // Send the user data in the response
@@ -108,7 +153,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// CREATE a new user 
+// CREATE a new user
 // router.post(`/`, async (req, res) => {
 //   try {
 //     // Validation: Check if required fields are provided
@@ -235,13 +280,11 @@ router.post("/login", async (req, res) => {
         .json({ success: false, message: "Invalid password" });
     }
   } catch (error) {
-    return res
-      .status(500)
-      .json({
-        success: false,
-        message: "Internal server error",
-        error: error.message,
-      });
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+      error: error.message,
+    });
   }
 });
 
@@ -306,16 +349,27 @@ router.post("/login", async (req, res) => {
 // });
 
 // Registration route with OTP-based verification
-router.post('/register', async (req, res) => {
+router.post("/register", async (req, res) => {
   try {
-    const { name, email, password, phone, street, apartment, zip, city, country, isAdmin } = req.body;
+    const {
+      name,
+      email,
+      password,
+      phone,
+      street,
+      apartment,
+      zip,
+      city,
+      country,
+      isAdmin,
+    } = req.body;
 
     // Check if the user already exists
     const isUser = await User.findOne({ email });
     if (isUser) {
       return res.json({
         error: true,
-        message: 'User Already Exists!',
+        message: "User Already Exists!",
       });
     }
 
@@ -339,7 +393,7 @@ router.post('/register', async (req, res) => {
       isAdmin,
       isVerified: false, // Not verified yet
       otpHash, // Save the OTP hash
-      otpExpiresIn: expiresIn
+      otpExpiresIn: expiresIn,
     });
 
     // Save the user to the database
@@ -349,7 +403,8 @@ router.post('/register', async (req, res) => {
     await sendOTPEmail(email, otp);
 
     res.status(201).send({
-      message: 'Registration successful! OTP sent to your email for verification.',
+      message:
+        "Registration successful! OTP sent to your email for verification.",
     });
   } catch (err) {
     res.status(500).send({ message: err.message });
@@ -357,7 +412,7 @@ router.post('/register', async (req, res) => {
 });
 
 // OTP verification route
-router.post('/verify-otp', async (req, res) => {
+router.post("/verify-otp", async (req, res) => {
   console.log("Verify OTP route hit");
   const { email, otp } = req.body;
 
@@ -365,12 +420,12 @@ router.post('/verify-otp', async (req, res) => {
     // Find the user by email
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(400).send('User not found.');
+      return res.status(400).send("User not found.");
     }
 
     // Check if user is already verified
     if (user.isVerified) {
-      return res.status(400).send('User already verified.');
+      return res.status(400).send("User already verified.");
     }
 
     // Debugging log to check the flow of verification
@@ -378,18 +433,18 @@ router.post('/verify-otp', async (req, res) => {
 
     if (Date.now() > user.otpExpiresIn) {
       console.log("OTP expired."); // Log if OTP is expired
-      return res.status(400).send('OTP has expired.');
+      return res.status(400).send("OTP has expired.");
     }
 
     // Debugging logs for OTP comparison
-    console.log('User entered OTP:', otp);
-    console.log('Stored otpHash:', user.otpHash);
+    console.log("User entered OTP:", otp);
+    console.log("Stored otpHash:", user.otpHash);
 
     // Compare the OTP
     const isOtpMatch = await bcrypt.compare(otp, user.otpHash);
     if (!isOtpMatch) {
       console.log("OTP did not match.");
-      return res.status(400).send('Invalid OTP.');
+      return res.status(400).send("Invalid OTP.");
     }
 
     // Mark the user as verified and clear the OTP hash
@@ -398,12 +453,11 @@ router.post('/verify-otp', async (req, res) => {
     user.otpExpiresIn = null;
     await user.save();
 
-    res.status(200).send('Email verified successfully.');
+    res.status(200).send("Email verified successfully.");
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
 });
-
 
 // Email verification route
 // router.get('/verify-email/:token', async (req, res) => {
@@ -435,7 +489,6 @@ router.post('/verify-otp', async (req, res) => {
 //     res.status(400).send('Invalid or expired token.');
 //   }
 // });
-
 
 // DELETE a user by ID
 router.delete("/:id", async (req, res) => {

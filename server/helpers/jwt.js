@@ -20,7 +20,8 @@ function authJwt() {
         { url: /\/api\/v1\/products(.*)/, methods: ['GET', 'OPTIONS'] },
         { url: /\/api\/v1\/categories(.*)/, methods: ['GET', 'OPTIONS'] },
         { url: /\/api\/v1\/users\/verify-email(.*)/, methods: ['GET', 'OPTIONS'] },
-        { url: `${api}/orders`, methods: ['POST'] },
+        { url: `${api}/users/orders`, methods: ['POST'] },
+        { url: `${api}/users/contact`, methods: ['POST'] },
         `${api}/users/login`, // Exclude login route
         `${api}/users/register`, // Exclude register route
         `${api}/users/verify`

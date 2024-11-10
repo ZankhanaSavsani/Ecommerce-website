@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import AboutUs from "./components/About";
@@ -12,6 +11,8 @@ import CartPage from "./components/CartPage";
 import ProductDetails from "./components/ProductDetails";
 import Layout from "./components/Layout";
 import CheckoutPage from "./components/CheckoutPage";
+import './css/style.css';
+
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -22,7 +23,7 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        {/* Routes with layout */}
+        {/* Routes with Layout */}
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
@@ -35,7 +36,7 @@ const App = () => {
           <Route path="/checkout" element={<CheckoutPage />} />
         </Route>
 
-        {/* Routes without layout */}
+        {/* Routes without Layout */}
         <Route path="/register" element={<RegistrationPage />} />
         <Route path="/login" element={<LoginPage handleLogin={handleLogin} />} />
       </Routes>

@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
-import { useLocation } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Navbar from './Navbar';
 import Footer from './Footer';
 import CopyRight from './CopyRight';
 
-const Layout = ({ children }) => {
+const Layout = () => {
   const location = useLocation();
   const excludePaths = ["/login", "/register"];
   const showLayout = !excludePaths.includes(location.pathname);
@@ -17,7 +17,9 @@ const Layout = ({ children }) => {
   return (
     <div className="layout-container">
       {showLayout && <Navbar />}
-      <main className="main-content">{children}</main>
+      <main className="main-content">
+        <Outlet /> {/* Render child routes here */}
+      </main>
       {showLayout && <Footer />}
       {showLayout && <CopyRight />}
     </div>

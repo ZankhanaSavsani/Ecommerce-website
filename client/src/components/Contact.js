@@ -1,10 +1,12 @@
-import styled from 'styled-components';
+import styled from "styled-components";
+import React, { useState } from 'react';
+import axios from 'axios';
 
 const Wrapper = styled.section`
   padding: 6rem 0 4rem 0;
   text-align: center;
   color: #333;
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
 
   iframe {
     margin-top: 3rem;
@@ -113,8 +115,37 @@ const Wrapper = styled.section`
   }
 `;
 
-
 const Contact = () => {
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    message: "",
+  });
+
+  const [statusMessage, setStatusMessage] = useState("");
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/v1/users/contact",
+        formData
+      );
+      if (response.data.success) {
+        setStatusMessage("Message sent successfully!");
+        setFormData({ username: "", email: "", message: "" });
+      }
+    } catch (error) {
+      setStatusMessage("Error sending message. Please try again.");
+    }
+  };
+
   return (
     <Wrapper>
       <iframe
@@ -130,16 +161,14 @@ const Contact = () => {
       <div className="container">
         <h2 className="common-heading">Contact Us</h2>
         <div className="contact-form">
-          <form
-            action="https://formspree.io/f/xeqdgwnq"
-            method="POST"
-            className="contact-inputs"
-          >
+          <form onSubmit={handleSubmit} className="contact-inputs">
             <div className="input-container">
               <input
                 type="text"
                 name="username"
                 placeholder=" "
+                value={formData.username}
+                onChange={handleInputChange}
                 required
                 autoComplete="off"
               />
@@ -149,8 +178,10 @@ const Contact = () => {
             <div className="input-container">
               <input
                 type="email"
-                name="Email"
+                name="email"
                 placeholder=" "
+                value={formData.email}
+                onChange={handleInputChange}
                 required
                 autoComplete="off"
               />
@@ -159,18 +190,21 @@ const Contact = () => {
 
             <div className="input-container">
               <textarea
-                name="Message"
+                name="message"
                 cols="30"
                 rows="5"
                 required
                 autoComplete="off"
                 placeholder=" "
+                value={formData.message}
+                onChange={handleInputChange}
               ></textarea>
               <label>Enter your message</label>
             </div>
 
             <input type="submit" value="Send" />
           </form>
+          {statusMessage && <p>{statusMessage}</p>}
         </div>
       </div>
     </Wrapper>
