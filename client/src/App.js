@@ -1,4 +1,3 @@
-// App.js
 import React, { useState } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -14,38 +13,32 @@ import ProductDetails from "./components/ProductDetails";
 import Layout from "./components/Layout";
 import CheckoutPage from "./components/CheckoutPage";
 
-
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Default state
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-    // Any additional logout logic here
-  };
-
-  const handleLogin = () => {
-    setIsLoggedIn(true);
-    // Any additional login logic here
-  };
+  const handleLogout = () => setIsLoggedIn(false);
+  const handleLogin = () => setIsLoggedIn(true);
 
   return (
     <Router>
-      <Layout>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/about" element={<AboutUs />} />
-        <Route path="/contact" element={<ContactUs />} />
-        <Route path="/Categories" element={<Categories />} />
-        <Route path="/category/:categoryId" element={<CategoryProducts />} />
-        <Route path="/product/:productId" element={<ProductDetails />} />
-        <Route path="/cart" element={<CartPage />} />
-        <Route path="/checkout" element={<CheckoutPage />} />
+        {/* Routes with layout */}
+        <Route element={<Layout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/about" element={<AboutUs />} />
+          <Route path="/contact" element={<ContactUs />} />
+          <Route path="/categories" element={<Categories />} />
+          <Route path="/category/:categoryId" element={<CategoryProducts />} />
+          <Route path="/product/:productId" element={<ProductDetails />} />
+          <Route path="/cart" element={<CartPage />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
+        </Route>
+
+        {/* Routes without layout */}
         <Route path="/register" element={<RegistrationPage />} />
-        <Route path="/login" element={<LoginPage handleLogin={handleLogin} />} /> {/* Pass handleLogin to LoginPage */}
+        <Route path="/login" element={<LoginPage handleLogin={handleLogin} />} />
       </Routes>
-      </Layout>
     </Router>
   );
 };

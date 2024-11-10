@@ -2,8 +2,9 @@ import React, { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Fuse from "fuse.js";
 import ReactStars from "react-rating-stars-component";
-import { Link } from "react-router-dom";  
+import { Link } from "react-router-dom";
 import "../css/CategoryProducts.css";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
 function CategoryProducts() {
   const { categoryId } = useParams();
@@ -138,8 +139,13 @@ function CategoryProducts() {
           onChange={(e) => setSearchQuery(e.target.value)}
         />
         <button className="toggle-sidebar" onClick={toggleSidebar}>
-          {isSidebarVisible ? "−" : "+"}
+          {isSidebarVisible ? (
+            <i className="fas fa-times"></i>
+          ) : (
+            <i className="fas fa-bars"></i>
+          )}
         </button>
+
         {isSidebarVisible && (
           <div
             ref={sidebarRef}
@@ -162,9 +168,7 @@ function CategoryProducts() {
           </div>
         )}
         {showPopup && (
-          <div className="popup-message">
-            Product added to cart!
-          </div>
+          <div className="popup-message">Product added to cart!</div>
         )}
         <div
           className={`product-grid ${

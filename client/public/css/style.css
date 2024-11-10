@@ -30,7 +30,6 @@ html, body {
   line-height: 1.80857;
   font-weight: normal;
   overflow-x: hidden;
-  padding-top: 65px;
 }
 
 html {
@@ -210,41 +209,6 @@ button {
 .padding_0 {
   padding: 0px;
 }
-
-/* header section start */
-
-.header_section {
-  width: 100%;
-  float: left;
-  background-image: url(/images/banner-bg.jpg);
-  height: auto;
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-}
-
-.header_bg {
-  width: 100%;
-  float: left;
-  background: #1d1d1d;
-  height: auto;
-  background-size: 100%;
-}
-
-.bg-light {
-  background-color: transparent !important;
-}
-
-.mr-auto,
-.mx-auto {
-  margin: 0 auto;
-  text-align: center;
-}
-
-.header_section {
-  background-color: #111111;
-}
-
-/* header section end */
 
 .margin_top90 {
   margin-top: 50px;

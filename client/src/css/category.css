@@ -4,6 +4,7 @@
   float: left;
   padding: 40px 0;
   background-color: #f5f5f5;
+  padding-top: 80px;
 }
 
 .section_title {
@@ -13,7 +14,7 @@
   text-transform: uppercase;
   text-align: center;
   font-weight: 700;
-  padding-bottom: 20px;
+  padding-bottom: 0px;
   letter-spacing: 1px;
   transition: color 0.3s ease;
 }
@@ -24,10 +25,10 @@
 
 /* Container */
 .section_2 {
-  width: 90%;
+  width: 50%;
   margin: 0 auto;
   text-align: center;
-  padding-top: 40px;
+  padding-top: 30px;
   transition: transform 0.3s ease;
 }
 
@@ -45,7 +46,7 @@
 
 .img_container img {
   height: 15vmax;
-  width: 22vmax;
+  width: 20vmax;
   object-fit: cover;
   border-radius: 8px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
