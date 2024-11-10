@@ -10,7 +10,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 65px;
+  height: 70px;
   padding: 15px 200px;
   background: #010a14;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
@@ -96,7 +96,7 @@ a:hover::after {
   display: none;
 }
 
-.login-btn {
+.logout-btn {
   background-color: #045215; 
   color: #fff; 
   border: none; 
@@ -107,7 +107,7 @@ a:hover::after {
   font-size: 16px; 
 }
 
-.login-btn:hover {
+.logout-btn:hover {
   background-color: #218838; 
 }
 

@@ -12,6 +12,7 @@ import ProductDetails from "./components/ProductDetails";
 import Layout from "./components/Layout";
 import CheckoutPage from "./components/CheckoutPage";
 import './css/style.css';
+import OrderConfirmation from "./components/OrderConfirmation";
 
 
 const App = () => {
@@ -25,7 +26,6 @@ const App = () => {
       <Routes>
         {/* Routes with Layout */}
         <Route element={<Layout />}>
-          <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/contact" element={<ContactUs />} />
@@ -33,12 +33,14 @@ const App = () => {
           <Route path="/category/:categoryId" element={<CategoryProducts />} />
           <Route path="/product/:productId" element={<ProductDetails />} />
           <Route path="/cart" element={<CartPage />} />
+          <Route path="/order-confirmation" element={<OrderConfirmation />} />
           <Route path="/checkout" element={<CheckoutPage />} />
         </Route>
 
         {/* Routes without Layout */}
         <Route path="/register" element={<RegistrationPage />} />
         <Route path="/login" element={<LoginPage handleLogin={handleLogin} />} />
+        <Route path="/" element={<LoginPage handleLogin={handleLogin} />} />
       </Routes>
     </Router>
   );

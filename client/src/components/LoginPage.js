@@ -33,7 +33,7 @@ const LoginPage = () => {
       setError(null);
       
       // Navigate to the desired route after a successful login
-      navigate('/'); // You can change this to any route you want to navigate to
+      navigate('/home'); // You can change this to any route you want to navigate to
 
       // Reset form fields
       setFormData({

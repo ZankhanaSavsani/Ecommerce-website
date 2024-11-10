@@ -22,9 +22,6 @@ const NavBar = () => {
     window.location.href = '/login';
   };
 
-  const handleLogin = () => {
-    navigate('/login'); 
-  };
 
   const goToCart = () => {
     navigate('/cart');
@@ -60,7 +57,7 @@ const NavBar = () => {
         <button className="cart-btn" onClick={goToCart}>
             <UilShoppingCart className="cart-icon" /> Cart
           </button>
-        <li><button className="login-btn" onClick={handleLogin}>Login</button></li>
+        <li><button className="logout-btn" onClick={handleLogout}>Logout</button></li>
       </ul>
     </nav>
   );
