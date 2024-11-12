@@ -25,7 +25,7 @@ function authJwt() {
         { url: `${api}/users/contact`, methods: ['POST'] },
         `${api}/users/login`, // Exclude login route
         `${api}/users/register`, // Exclude register route
-        `${api}/users/verify`
+        `${api}/users/verify-otp`
       ]
     });
   }
