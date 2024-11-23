@@ -7,7 +7,6 @@ const cors = require('cors');
 const authJwt = require('./helpers/jwt.js');
 const errorHandler = require('./helpers/error-handler.js');
 const path = require("path");
-const verifyUser = require('./middleware/verifyUser.js');
 
 require('dotenv').config();
 
@@ -41,6 +40,7 @@ const usersRouter = require('./routers/users.js');
 const categoriesRouter = require('./routers/categories.js');
 const ordersRouter = require('./routers/orders.js');
 const cartRouter = require('./routers/shoppingCart.js');
+const adminRouter = require('./routers/admin.js');
 
 const mongoURI = process.env.CONNECTION_STRING;
 
@@ -49,6 +49,7 @@ app.use(`${api}/users`,usersRouter);
 app.use(`${api}/categories`,categoriesRouter);
 app.use(`${api}/orders`,ordersRouter);
 app.use(`${api}/cart`,cartRouter);
+app.use(`${api}/admin`, adminRouter);
 
 //Database
 mongoose.connect(mongoURI,{

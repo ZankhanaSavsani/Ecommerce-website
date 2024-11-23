@@ -33,7 +33,7 @@ const orderSchema = mongoose.Schema({
         type: String,
         required: true,
         default: "Order Placed",
-        enum: ["Order Placed", "Confirmed by Admin"]
+        enum: ["Order Placed", "Order complete"]
     },
     totalPrice:{
         type: Number,

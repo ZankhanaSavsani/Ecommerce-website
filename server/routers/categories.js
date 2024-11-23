@@ -82,31 +82,37 @@ router.get("/:id", async (req, res) => {
 });
 
 // UPDATE a category by ID
-router.put("/:id", async (req, res) => {
+router.put("/:id", uploadOptions.single("icon"), async (req, res) => {
   try {
     // Validate the category ID
     if (!mongoose.isValidObjectId(req.params.id)) {
       return res.status(400).send("Invalid Category ID");
     }
 
-    // Update the category with the provided data
-    const updatedCategory = await Category.findByIdAndUpdate(
-      req.params.id,
-      {
-        name: req.body.name,
-        icon: req.body.icon,
-        color: req.body.color,
-      },
-      { new: true } // Return the updated document
-    );
+    // Find the category by ID
+    const category = await Category.findById(req.params.id);
 
-    // Check if the category update was successful
-    if (!updatedCategory) {
-      return res.status(404).send("The category cannot be updated!");
+    // Check if the category exists
+    if (!category) {
+      return res.status(404).send("Category not found");
     }
 
+    // Check if the new icon is uploaded
+    if (req.file) {
+      const fileName = req.file.filename;
+      const basePath = `${req.protocol}://${req.get("host")}/public/uploads/`;
+      category.icon = `${basePath}${fileName}`; // Update the icon URL
+    }
+
+    // Update the category fields (name, color)
+    category.name = req.body.name || category.name; // Only update if provided
+    category.color = req.body.color || category.color; // Only update if provided
+
+    // Save the updated category
+    const updatedCategory = await category.save();
+
     // Send the updated category in the response
-    res.send(updatedCategory);
+    res.status(200).json(updatedCategory);
   } catch (error) {
     // Handle any errors during the operation
     res.status(500).json({ success: false, error: error.message });

@@ -5,6 +5,7 @@ const bcrypt = require("bcryptjs"); // Import bcrypt for password hashing
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 
+
 // Helper function to generate OTP
 const generateOTPWithExpiry = () => ({
   otp: Math.floor(100000 + Math.random() * 900000).toString(),

@@ -17,15 +17,18 @@ function authJwt() {
         { url: /\/css\/(.*)/, methods: ['GET', 'OPTIONS'] },  
         { url: /\/images\/(.*)/, methods: ['GET', 'OPTIONS'] },
         // { url: /\/api\/v1\/products/\category(.*)/, methods: ['GET', 'OPTIONS']},
-        { url: /\/api\/v1\/products(.*)/, methods: ['GET', 'OPTIONS'] },
-        { url: /\/api\/v1\/categories(.*)/, methods: ['GET', 'OPTIONS'] },
+        { url: /\/api\/v1\/products(.*)/, methods: ['GET','POST', 'PUT', 'DELETE', 'OPTIONS'] },
+        { url: /\/api\/v1\/categories(.*)/, methods: ['GET','POST', 'PUT', 'DELETE', 'OPTIONS'] },
         { url: /\/api\/v1\/users\/verify-email(.*)/, methods: ['GET', 'OPTIONS'] },
-        { url: `${api}/orders`, methods: ['POST'] },
-        { url: `${api}/orders`, methods: ['GET'] },
+        { url: /\/api\/v1\/orders(.*)/, methods: ['GET','POST', 'PUT', 'DELETE', 'OPTIONS'] },
+        // { url: `${api}/orders`, methods: ['POST'] },
+        // { url: `${api}/orders`, methods: ['GET','PUT'] },
+        // { url: `${api}/orders/`, methods: ['GET','PUT'] },
         { url: `${api}/users/contact`, methods: ['POST'] },
         `${api}/users/login`, // Exclude login route
         `${api}/users/register`, // Exclude register route
-        `${api}/users/verify-otp`
+        `${api}/users/verify-otp`,
+        `${api}/admin/login`
       ]
     });
   }

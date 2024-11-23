@@ -50,20 +50,20 @@
   margin-top: 30px;
 }
 
-.readmore_btn a {
+.readmore_btn button {
   font-size: 16px;
   color: #fff;
   text-transform: uppercase;
   padding: 10px 20px;
-  display: inline-block;
-  text-align: center;
+  border: none;
+  cursor: pointer;
   border-radius: 5px;
   background-color: #06632d;
   transition: background-color 0.3s ease, transform 0.2s ease;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
-.readmore_btn a:hover {
+.readmore_btn button:hover {
   background-color: #04451a;
   transform: translateY(-3px);
 }
